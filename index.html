@@ -9,10 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="icon" href="https://st-albasra.com/wp-content/uploads/2025/03/iridium-solutions-it-communication-solutions-provider-iraq-service-6-connectivity-768x438-1.jpg" type="image/x-icon">
   
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-storage-compat.js"></script>
-  
   <style>
     :root {
       --primary: #8B5FBF;
@@ -1003,6 +999,42 @@
       margin-bottom: 25px;
       line-height: 1.6;
     }
+
+    /* نافذة تحميل */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2001;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      border-top-color: var(--accent);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     
     /* تنسيق جديد لقسم المهارات التقنية المصغرة */
     .skills-grid {
@@ -1184,24 +1216,6 @@
       }
     }
   </style>
-  
-  <!-- تهيئة Firebase -->
-  <script>
-    // تكوين Firebase - استبدل هذه القيم ببيانات مشروعك الفعلي
-    const firebaseConfig = {
-      apiKey: "AIzaSyDEXAMPLEEXAMPLEEXAMPLE123456789",
-      authDomain: "your-project.firebaseapp.com",
-      projectId: "your-project-id",
-      storageBucket: "your-project.appspot.com",
-      messagingSenderId: "123456789012",
-      appId: "1:123456789012:web:abcdef1234567890"
-    };
-    
-    // تهيئة Firebase
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-  </script>
 </head>
 <body>
   <!-- زر التحويل بين الوضع الليلي والنهاري -->
@@ -1234,6 +1248,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- نافذة التحميل -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
   </div>
 
   <div class="container">
@@ -1608,45 +1627,45 @@
               <p class="muted">أداة متقدمة لتحليل أداء مواقع الويب وتقديم توصيات لتحسين السرعة والتجربة.</p>
               <div class="idea-tags">
                 <span class="idea-tag python-tag">Python</span>
-                <span class="idea-tag">Performance</span>
-                <span class="idea-tag">Analytics</span>
+                    <span class="idea-tag">Performance</span>
+                    <span class="idea-tag">Analytics</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="idea-form">
-            <h3>شاركنا أفكارك البرمجية</h3>
-            <p class="muted">هل لديك فكرة برمجية تريد تطويرها؟ شاركنا أفكارك وسنعمل معًا على تحويلها إلى واقع.</p>
-            
-            <div class="contact-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="idea-name">اسم الفكرة</label>
-                  <input type="text" id="idea-name" placeholder="أدخل اسم فكرتك">
-                </div>
+              <div class="idea-form">
+                <h3>شاركنا أفكارك البرمجية</h3>
+                <p class="muted">هل لديك فكرة برمجية تريد تطويرها؟ شاركنا أفكارك وسنعمل معًا على تحويلها إلى واقع.</p>
                 
-                <div class="form-group">
-                  <label for="idea-category">التصنيف</label>
-                  <select id="idea-category" style="padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: inherit; font-family: inherit; width: 100%;">
-                    <option value="">اختر التصنيف</option>
-                    <option value="web">تطوير الويب</option>
-                    <option value="mobile">تطبيقات الجوال</option>
-                    <option value="ai">الذكاء الاصطناعي</option>
-                    <option value="automation">الأتمتة</option>
-                    <option value="data">تحليل البيانات</option>
-                  </select>
+                <div class="contact-form">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="idea-name">اسم الفكرة</label>
+                      <input type="text" id="idea-name" placeholder="أدخل اسم فكرتك">
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="idea-category">التصنيف</label>
+                      <select id="idea-category" style="padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: inherit; font-family: inherit; width: 100%;">
+                        <option value="">اختر التصنيف</option>
+                        <option value="web">تطوير الويب</option>
+                        <option value="mobile">تطبيقات الجوال</option>
+                        <option value="ai">الذكاء الاصطناعي</option>
+                        <option value="automation">الأتمتة</option>
+                        <option value="data">تحليل البيانات</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="idea-description">وصف الفكرة</label>
+                    <textarea id="idea-description" rows="4" placeholder="صف فكرتك بالتفصيل..."></textarea>
+                  </div>
+                  
+                  <button>إرسال الفكرة</button>
                 </div>
               </div>
-              
-              <div class="form-group">
-                <label for="idea-description">وصف الفكرة</label>
-                <textarea id="idea-description" rows="4" placeholder="صف فكرتك بالتفصيل..."></textarea>
-              </div>
-              
-              <button>إرسال الفكرة</button>
             </div>
-          </div>
-        </div>
       </section>
 
       <!-- صفحة فلسفة البرمجة -->
@@ -1841,7 +1860,9 @@
   </div>
 
   <script>
+    // ==============================
     // نظام الوضع الليلي/النهاري
+    // ==============================
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('i');
 
@@ -1869,8 +1890,11 @@
       }
     }
 
-    // نظام رمز التحقق لتغيير الصورة الشخصية
+    // ==============================
+    // نظام مشاركة الصورة مع ImgBB
+    // ==============================
     const verificationOverlay = document.getElementById('verificationOverlay');
+    const loadingOverlay = document.getElementById('loadingOverlay');
     const changeImageButton = document.getElementById('changeImageButton');
     const verifyButton = document.getElementById('verifyButton');
     const cancelVerificationButton = document.getElementById('cancelVerificationButton');
@@ -1881,90 +1905,149 @@
     // الرمز الصحيح لتغيير الصورة
     const correctCode = '775247172Mu';
     
-    // اسم الملف الثابت للصورة الشخصية على Firebase
+    // مفتاح API الخاص بـ ImgBB
+    // احصل على مفتاح مجاني من: https://api.imgbb.com/
+    const IMGBB_API_KEY = '7a1a41f88341d750038a312a1f002679'; // هذا مفتاح مثال، استبدله بمفتاحك
+    
+    // اسم الملف الثابت للصورة الشخصية
     const PROFILE_IMAGE_FILENAME = 'profile_image.jpg';
     
-    // تهيئة Firebase Storage
-    let storage;
-    try {
-      storage = firebase.storage();
-    } catch (error) {
-      console.log('Firebase غير مهيأ، سيتم استخدام localStorage كبديل');
-    }
+    // رابط الصورة المخزن محلياً (مؤقت)
+    let currentImageUrl = localStorage.getItem('profileImageUrl') || 
+                         'https://via.placeholder.com/120/8B5FBF/FFFFFF?text=عبد+الوهاب';
     
-    // تحميل الصورة الشخصية من Firebase
-    async function loadProfileImage() {
+    // ==============================
+    // دالة رفع الصورة إلى ImgBB
+    // ==============================
+    async function uploadToImgBB(file) {
       try {
-        if (!storage) {
-          // إذا لم يكن Firebase متاحاً، استخدم localStorage
-          const savedProfileImage = localStorage.getItem('profileImage');
-          if (savedProfileImage) {
-            profileImage.src = savedProfileImage;
-          }
-          return;
-        }
+        // إظهار نافذة التحميل
+        loadingOverlay.classList.add('active');
         
-        // الحصول على رابط الصورة من Firebase Storage
-        const imageRef = storage.ref().child(PROFILE_IMAGE_FILENAME);
-        const imageUrl = await imageRef.getDownloadURL();
+        // تحويل الصورة إلى base64
+        const reader = new FileReader();
         
-        // تحميل الصورة
-        profileImage.src = imageUrl;
-        
-        // حفظ الرابط مؤقتاً في localStorage لتحسين الأداء
-        localStorage.setItem('profileImageUrl', imageUrl);
+        return new Promise((resolve, reject) => {
+          reader.onload = async function(e) {
+            try {
+              const base64Image = e.target.result.split(',')[1];
+              
+              // إنشاء بيانات النموذج
+              const formData = new FormData();
+              formData.append('image', base64Image);
+              
+              // إرسال الطلب إلى ImgBB API
+              const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                method: 'POST',
+                body: formData
+              });
+              
+              const data = await response.json();
+              
+              if (data.success) {
+                resolve(data.data.url);
+              } else {
+                reject(new Error(data.error?.message || 'فشل رفع الصورة'));
+              }
+            } catch (error) {
+              reject(error);
+            } finally {
+              loadingOverlay.classList.remove('active');
+            }
+          };
+          
+          reader.onerror = () => {
+            loadingOverlay.classList.remove('active');
+            reject(new Error('خطأ في قراءة الملف'));
+          };
+          
+          reader.readAsDataURL(file);
+        });
         
       } catch (error) {
-        console.log('لم يتم العثور على صورة شخصية على الخادم');
-        
-        // استخدام الصورة المحلية المخزنة مسبقاً كبديل
-        const savedProfileImage = localStorage.getItem('profileImage');
-        if (savedProfileImage) {
-          profileImage.src = savedProfileImage;
-        }
+        loadingOverlay.classList.remove('active');
+        throw error;
       }
     }
     
-    // رفع الصورة الشخصية إلى Firebase
-    async function uploadProfileImage(file) {
+    // ==============================
+    // دالة تحميل الصورة الشخصية
+    // ==============================
+    async function loadProfileImage() {
       try {
-        if (!storage) {
-          throw new Error('Firebase غير متوفر');
+        // تحميل الصورة من localStorage أولاً
+        if (currentImageUrl && currentImageUrl !== 'https://via.placeholder.com/120/8B5FBF/FFFFFF?text=عبد+الوهاب') {
+          profileImage.src = currentImageUrl;
         }
         
-        // إنشاء مرجع للصورة
-        const imageRef = storage.ref().child(PROFILE_IMAGE_FILENAME);
+        // محاولة تحديث الصورة من ImgBB (إذا كانت موجودة)
+        // يمكن إضافة منطق هنا للتحقق من تحديثات الصورة
+        console.log('الصورة الشخصية تم تحميلها بنجاح');
         
-        // رفع الصورة
-        await imageRef.put(file);
+      } catch (error) {
+        console.error('خطأ في تحميل الصورة:', error);
+      }
+    }
+    
+    // ==============================
+    // دالة حفظ رابط الصورة للجميع
+    // ==============================
+    function saveProfileImageUrl(imageUrl) {
+      // حفظ الرابط في localStorage للمستخدم الحالي
+      localStorage.setItem('profileImageUrl', imageUrl);
+      currentImageUrl = imageUrl;
+      
+      // هنا يمكن إضافة منطق لحفظ الرابط في قاعدة بيانات
+      // ليكون متاحاً لجميع المستخدمين
+      console.log('تم حفظ رابط الصورة:', imageUrl);
+      
+      // في نظام حقيقي، هنا نرسل الرابط إلى خادم لحفظه في قاعدة بيانات
+      // يمكن استخدام JSONBin أو خدمة مشابهة
+    }
+    
+    // ==============================
+    // دالة رفع الصورة ومعالجتها
+    // ==============================
+    async function uploadAndSaveProfileImage(file) {
+      try {
+        // تحقق من حجم الصورة (حد أقصى 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          alert('حجم الصورة كبير جداً! الحد الأقصى هو 5MB');
+          return false;
+        }
         
-        // الحصول على رابط جديد للصورة
-        const imageUrl = await imageRef.getDownloadURL();
+        // تحقق من نوع الملف
+        if (!file.type.startsWith('image/')) {
+          alert('الرجاء اختيار ملف صورة فقط');
+          return false;
+        }
         
-        // تحديث الصورة في الواجهة
-        profileImage.src = imageUrl;
+        // رفع الصورة إلى ImgBB
+        const imageUrl = await uploadToImgBB(file);
         
-        // حفظ الرابط في localStorage
-        localStorage.setItem('profileImageUrl', imageUrl);
+        if (imageUrl) {
+          // حفظ الرابط
+          saveProfileImageUrl(imageUrl);
+          
+          // تحديث الصورة في الواجهة
+          profileImage.src = imageUrl;
+          
+          alert('✅ تم تحديث الصورة الشخصية بنجاح!');
+          return true;
+        }
         
-        alert('تم تحديث الصورة الشخصية بنجاح! ستظهر الصورة لجميع المستخدمين.');
-        return true;
+        return false;
         
       } catch (error) {
         console.error('خطأ في رفع الصورة:', error);
-        
-        // رفع الصورة فشل، استخدم localStorage كبديل
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          profileImage.src = e.target.result;
-          localStorage.setItem('profileImage', e.target.result);
-          alert('تم تحديث الصورة الشخصية محلياً فقط (لن تظهر للمستخدمين الآخرين)');
-        };
-        reader.readAsDataURL(file);
+        alert('❌ حدث خطأ أثناء رفع الصورة. يرجى المحاولة مرة أخرى.');
         return false;
       }
     }
     
+    // ==============================
+    // معالجات الأحداث للصورة الشخصية
+    // ==============================
     // فتح نافذة التحقق عند النقر على تغيير الصورة
     changeImageButton.addEventListener('click', () => {
       verificationOverlay.classList.add('active');
@@ -1983,7 +2066,7 @@
         // فتح نافذة اختيار الصورة
         imageUpload.click();
       } else {
-        alert('رمز التحقق غير صحيح! يرجى المحاولة مرة أخرى.');
+        alert('❌ رمز التحقق غير صحيح! يرجى المحاولة مرة أخرى.');
         verificationCodeInput.value = '';
         verificationCodeInput.focus();
       }
@@ -2006,31 +2089,45 @@
       const file = e.target.files[0];
       if (!file) return;
       
-      if (!file.type.startsWith('image/')) {
-        alert('الرجاء اختيار ملف صورة فقط');
-        return;
-      }
-      
-      // تحقق من حجم الصورة (حد أقصى 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('حجم الصورة كبير جداً! الحد الأقصى هو 5MB');
-        return;
-      }
-      
-      // إظهار رسالة تحميل
-      alert('جاري رفع الصورة... قد يستغرق بضع ثوانٍ');
-      
-      // رفع الصورة إلى Firebase
-      await uploadProfileImage(file);
+      // رفع الصورة وحفظها
+      await uploadAndSaveProfileImage(file);
       
       // إعادة تعيين حقل الرفع
       imageUpload.value = '';
     });
 
+    // ==============================
+    // نظام مشاركة الصورة البسيط (بدون خادم)
+    // ==============================
+    // هذه دالة بديلة إذا لم يكن لديك مفتاح ImgBB
+    function simpleUploadAndShare(file) {
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        // حفظ الصورة في localStorage (للمستخدم الحالي فقط)
+        const imageDataUrl = e.target.result;
+        localStorage.setItem('profileImage', imageDataUrl);
+        
+        // تحديث الصورة في الواجهة
+        profileImage.src = imageDataUrl;
+        
+        // حفظ الرابط المؤقت
+        currentImageUrl = imageDataUrl;
+        
+        // ملاحظة: هذه الطريقة تظهر الصورة للمستخدم الحالي فقط
+        // لتظهر للجميع، تحتاج إلى استخدام خدمة استضافة مثل ImgBB
+        alert('⚠️ تم تحديث الصورة محلياً فقط.\n\nلجعلها تظهر لجميع المستخدمين، يرجى:\n1. التسجيل في imgbb.com\n2. الحصول على مفتاح API مجاني\n3. استبدال مفتاح API في الكود');
+      };
+      
+      reader.readAsDataURL(file);
+    }
+
     // تحميل الصورة الشخصية عند فتح الصفحة
     document.addEventListener('DOMContentLoaded', loadProfileImage);
 
+    // ==============================
     // وظائف التنقل بين الصفحات
+    // ==============================
     document.querySelectorAll('.nav-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         // إزالة الفئة النشطة من جميع الأزرار
@@ -2052,7 +2149,9 @@
       });
     });
 
+    // ==============================
     // وظائف مفكرة المهام
+    // ==============================
     const input = document.getElementById('taskInput');
     const addBtn = document.getElementById('addBtn');
     const list = document.getElementById('todoList');
@@ -2192,7 +2291,9 @@
 
     render();
 
+    // ==============================
     // وظائف التواصل عبر الرسائل
+    // ==============================
     const whatsappButton = document.getElementById('whatsappButton');
     const telegramButton = document.getElementById('telegramButton');
     const footerWhatsapp = document.getElementById('footerWhatsapp');
@@ -2201,7 +2302,7 @@
     const sendTelegram = document.getElementById('sendTelegram');
     
     // رقم الهاتف للتواصل عبر الواتساب
-    const phoneNumber = '967775247172'; // تم إزالة الرمز الدولي +
+    const phoneNumber = '967775247172';
     
     // رسالة افتراضية للواتساب
     const defaultMessage = 'مرحباً عبد الوهاب، أود التواصل معك بخصوص خدماتك البرمجية';
@@ -2209,7 +2310,7 @@
     // رابط الواتساب
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
     
-    // رابط التليجرام (يمكن استبداله برابط القناة أو المجموعة)
+    // رابط التليجرام
     const telegramUrl = `https://t.me/+${phoneNumber}`;
     
     // إضافة الأحداث للأزرار
@@ -2270,13 +2371,13 @@
       }
       fullMessage += `\nرسالتي:\n${message}`;
       
-      // لاحظ أن التليجرام لا يدعم إرسال رسائل مباشرة عبر الرابط مثل الواتساب
-      // لذا سنفتح التطبيق فقط مع نص جاهز للنسخ
       alert(`يمكنك نسخ الرسالة التالية وإرسالها عبر التليجرام:\n\n${fullMessage}`);
       window.open(telegramUrl, '_blank');
     });
 
+    // ==============================
     // تفاعل مع بطاقات المهارات
+    // ==============================
     document.querySelectorAll('.skill-card').forEach(card => {
       card.addEventListener('click', function() {
         const skill = this.getAttribute('data-skill');
@@ -2305,7 +2406,9 @@
       return descriptions[skill] || 'مهارة تقنية متقدمة أستخدمها في مشاريعي البرمجية.';
     }
 
+    // ==============================
     // تهيئة الصور عند تحميل الصفحة
+    // ==============================
     document.addEventListener('DOMContentLoaded', function() {
       // إضافة تأثيرات للصور
       const images = document.querySelectorAll('img');
