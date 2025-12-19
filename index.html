@@ -7,6 +7,12 @@
   <title>عبد الوهاب عبد الواحد الريمي | مطور واجهات أمامية ومصمم تجربة مستخدم</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="https://st-albasra.com/wp-content/uploads/2025/03/iridium-solutions-it-communication-solutions-provider-iraq-service-6-connectivity-768x438-1.jpg" type="image/x-icon">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-storage-compat.js"></script>
+  
   <style>
     :root {
       --primary: #8B5FBF;
@@ -29,6 +35,17 @@
       --whatsapp: #25D366;
       --telegram: #0088cc;
     }
+
+    /* متغيرات الوضع النهاري (الفاتح) */
+    [data-theme="light"] {
+      --dark: #F8FAFC;
+      --darker: #F1F5F9;
+      --card: #FFFFFF;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --glass: rgba(0,0,0,0.05);
+      --gradient: linear-gradient(135deg, #8B5FBF, #FF6B8B);
+    }
     
     * {
       box-sizing: border-box;
@@ -43,6 +60,7 @@
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
     
     .container {
@@ -50,11 +68,36 @@
       margin: 0 auto;
       padding: 20px;
     }
+
+    /* عناصر التحكم في الوضع */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--gradient);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+    }
     
     header {
       display: flex;
+      flex-direction: column;
       gap: 20px;
-      align-items: center;
       margin-bottom: 40px;
       padding: 20px;
       background: var(--glass);
@@ -64,6 +107,81 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       position: relative;
       overflow: hidden;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .header-content {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .profile-container {
+      position: relative;
+    }
+
+    /* تحديث تنسيق الصورة الشخصية */
+    .profile-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.05);
+      border-color: var(--secondary);
+    }
+
+    .profile-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .profile-container:hover .profile-overlay {
+      opacity: 1;
+    }
+
+    .profile-overlay button {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
     }
     
     header::before {
@@ -168,6 +286,10 @@
       color: var(--text);
     }
     
+    [data-theme="light"] .nav-tab:hover {
+      background: rgba(139, 95, 191, 0.1);
+    }
+
     .nav-tab.active {
       background: var(--gradient);
       color: white;
@@ -200,6 +322,10 @@
       position: relative;
       overflow: hidden;
     }
+
+    [data-theme="light"] .card {
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
     
     .card::before {
       content: "";
@@ -221,6 +347,10 @@
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    [data-theme="light"] .card:hover {
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
     }
     
     .about h2 {
@@ -263,6 +393,10 @@
       position: relative;
       overflow: hidden;
     }
+
+    [data-theme="light"] .tile {
+      background: rgba(0,0,0,0.03);
+    }
     
     .tile::before {
       content: "";
@@ -283,6 +417,10 @@
     .tile:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(139, 95, 191, 0.3);
+    }
+
+    [data-theme="light"] .tile:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
     
     .muted {
@@ -314,7 +452,7 @@
       margin-bottom: 20px;
     }
     
-    input[type=text], input[type=email], input[type=tel], textarea {
+    input[type=text], input[type=email], input[type=tel], textarea, select {
       flex: 1;
       padding: 12px 16px;
       border-radius: 12px;
@@ -324,11 +462,26 @@
       font-family: inherit;
       transition: all 0.3s ease;
     }
+
+    [data-theme="light"] input,
+    [data-theme="light"] textarea,
+    [data-theme="light"] select {
+      background: white;
+      border-color: #e2e8f0;
+      color: #1E293B;
+    }
     
-    input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus, textarea:focus {
+    input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus, textarea:focus, select:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.2);
+    }
+
+    [data-theme="light"] input:focus,
+    [data-theme="light"] textarea:focus,
+    [data-theme="light"] select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(139, 95, 191, 0.1);
     }
     
     button {
@@ -343,6 +496,10 @@
       font-family: inherit;
       position: relative;
       overflow: hidden;
+    }
+
+    [data-theme="light"] button {
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     
     button::after {
@@ -377,6 +534,10 @@
     button:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(139, 95, 191, 0.4);
+    }
+
+    [data-theme="light"] button:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
     
     button.secondary {
@@ -413,6 +574,18 @@
     ul.todo::-webkit-scrollbar-thumb {
       background: var(--primary);
       border-radius: 10px;
+    }
+
+    [data-theme="light"] ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    [data-theme="light"] ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+    }
+
+    [data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
     }
     
     ul.todo li {
@@ -498,6 +671,10 @@
       background: var(--glass);
       color: var(--text);
       transition: all 0.3s ease;
+    }
+
+    [data-theme="light"] .social-link {
+      background: rgba(0,0,0,0.05);
     }
     
     .social-link:hover {
@@ -664,15 +841,24 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(139, 95, 191, 0.3);
     }
-    
-    .project-image {
-      height: 180px;
-      background: var(--gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      color: white;
+
+    /* تنسيق صور المشاريع الحقيقية */
+    .image-frame {
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+      height: 200px;
+      border-bottom: 2px solid var(--glass);
+    }
+
+    .project-image-real {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .project-card:hover .project-image-real {
+      transform: scale(1.05);
     }
     
     .project-content {
@@ -766,156 +952,150 @@
     .form-row .form-group {
       flex: 1;
     }
-    
-    /* نافذة الإشعار */
-    .notification-overlay {
+
+    /* نافذة رمز التحقق */
+    .verification-overlay {
       position: fixed;
       top: 0;
       right: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 2000;
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
     }
-    
-    .notification-overlay.active {
+
+    .verification-overlay.active {
       opacity: 1;
       visibility: visible;
     }
     
-    .notification-modal {
+    .verification-modal {
       background: var(--card);
       padding: 30px;
       border-radius: 20px;
-      max-width: 500px;
+      max-width: 400px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
       border: 1px solid rgba(255,255,255,0.1);
       transform: translateY(20px);
       transition: transform 0.3s ease;
     }
-    
-    .notification-overlay.active .notification-modal {
+
+    .verification-overlay.active .verification-modal {
       transform: translateY(0);
     }
     
-    .notification-icon {
-      font-size: 48px;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-    
-    .notification-title {
+    .verification-title {
       font-size: 24px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       color: var(--text);
     }
     
-    .notification-message {
+    .verification-message {
       color: var(--text-muted);
       margin-bottom: 25px;
       line-height: 1.6;
     }
     
-    .notification-buttons {
-      display: flex;
+    /* تنسيق جديد لقسم المهارات التقنية المصغرة */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
       gap: 15px;
-      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
     }
     
-    .coming-soon-badge {
-      background: var(--gradient);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 20px;
+    .skill-card {
+      background: var(--glass);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      min-height: 120px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    [data-theme="light"] .skill-card {
+      background: rgba(0,0,0,0.03);
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(139, 95, 191, 0.3);
+      background: rgba(139, 95, 191, 0.1);
+    }
+
+    [data-theme="light"] .skill-card:hover {
+      background: rgba(139, 95, 191, 0.05);
+    }
+    
+    .skill-image {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 8px;
+      transition: transform 0.3s ease;
+    }
+    
+    .skill-card:hover .skill-image {
+      transform: scale(1.1);
+    }
+    
+    .skill-name {
       font-size: 14px;
       font-weight: 600;
-      display: inline-block;
-      margin: 10px 0;
-      animation: pulse 2s infinite;
+      color: var(--text);
     }
     
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    .skill-category {
+      font-size: 10px;
+      color: var(--text-muted);
+      background: rgba(139, 95, 191, 0.2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-top: 5px;
     }
     
-    .messaging-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
+    .skills-section {
+      background: linear-gradient(135deg, rgba(139, 95, 191, 0.05) 0%, rgba(255, 107, 139, 0.05) 100%);
+      padding: 25px;
+      border-radius: 16px;
+      margin: 25px 0;
+      border: 1px solid rgba(139, 95, 191, 0.1);
     }
     
-    .messaging-button {
-      flex: 1;
-      padding: 12px;
-      border-radius: 12px;
-      border: 0;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      font-family: inherit;
+    .skills-section h3 {
+      color: var(--primary);
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    
-    .messaging-button.whatsapp {
-      background: var(--whatsapp);
-    }
-    
-    .messaging-button.telegram {
-      background: var(--telegram);
-    }
-    
-    .messaging-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    
-    .send-options {
-      display: flex;
       gap: 10px;
-      margin-top: 15px;
+      font-size: 22px;
     }
     
-    .send-option {
-      flex: 1;
-      padding: 12px;
-      border-radius: 12px;
-      border: 0;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    
-    .send-option.whatsapp {
-      background: var(--whatsapp);
-    }
-    
-    .send-option.telegram {
-      background: var(--telegram);
-    }
-    
-    .send-option:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    .skills-description {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.6;
     }
     
     @media (max-width: 968px) {
@@ -923,7 +1103,7 @@
         grid-template-columns: 1fr;
       }
       
-      header {
+      .header-content {
         flex-direction: column;
         text-align: center;
       }
@@ -936,18 +1116,23 @@
         flex-direction: column;
       }
       
-      .notification-buttons {
-        flex-direction: column;
-      }
-      
-      .send-options {
-        flex-direction: column;
+      .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
       }
     }
     
     @media (max-width: 480px) {
       .container {
         padding: 10px;
+      }
+      
+      .theme-toggle {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
       }
       
       .grid {
@@ -979,47 +1164,110 @@
         grid-template-columns: 1fr;
       }
       
-      .messaging-buttons {
-        flex-direction: column;
+      .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+      }
+      
+      .skill-card {
+        padding: 10px;
+        min-height: 100px;
+      }
+      
+      .skill-image {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .skill-name {
+        font-size: 12px;
       }
     }
   </style>
+  
+  <!-- تهيئة Firebase -->
+  <script>
+    // تكوين Firebase - استبدل هذه القيم ببيانات مشروعك الفعلي
+    const firebaseConfig = {
+      apiKey: "AIzaSyDEXAMPLEEXAMPLEEXAMPLE123456789",
+      authDomain: "your-project.firebaseapp.com",
+      projectId: "your-project-id",
+      storageBucket: "your-project.appspot.com",
+      messagingSenderId: "123456789012",
+      appId: "1:123456789012:web:abcdef1234567890"
+    };
+    
+    // تهيئة Firebase
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+  </script>
 </head>
 <body>
-  <!-- نافذة الإشعار -->
-  <div class="notification-overlay" id="notificationOverlay">
-    <div class="notification-modal">
+  <!-- زر التحويل بين الوضع الليلي والنهاري -->
+  <button class="theme-toggle" id="themeToggle" title="التحويل إلى الوضع النهاري">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- نافذة رمز التحقق لتغيير الصورة -->
+  <div class="verification-overlay" id="verificationOverlay">
+    <div class="verification-modal">
       <div class="notification-icon">
-        <i class="fas fa-rocket"></i>
+        <i class="fas fa-lock"></i>
       </div>
-      <h2 class="notification-title">لا تذهب بعيداً! 🚀</h2>
-      <p class="notification-message">
-        شكراً لزيارتك موقعي الشخصي! 
+      <h2 class="verification-title">تحقق من الهوية</h2>
+      <p class="verification-message">
+        لأسباب أمنية، يرجى إدخال رمز التحقق لتغيير الصورة الشخصية.
         <br><br>
-        <strong>قريباً سيتم تزويدك بمشاريع حقيقية وتطبيقات عملية</strong>
-        <br><br>
-        أنا أعمل حالياً على تطوير مشاريع مبتكرة وحلول برمجية حقيقية ستغير الطريقة التي تتفاعل بها مع التكنولوجيا.
+        الرمز: <strong>775247172Mu</strong>
       </p>
-      <div class="coming-soon-badge">
-        قريباً إن شاء الله
-      </div>
-      <div class="notification-buttons">
-        <button class="success" id="stayButton">
-          <i class="fas fa-home"></i> البقاء في الموقع
-        </button>
-        <button class="secondary" id="leaveButton">
-          <i class="fas fa-external-link-alt"></i> متابعة التصفح
-        </button>
+      <div class="contact-form">
+        <div class="form-group">
+          <input type="text" id="verificationCode" placeholder="أدخل رمز التحقق هنا">
+        </div>
+        <div class="notification-buttons">
+          <button class="success" id="verifyButton">
+            <i class="fas fa-check"></i> تحقق
+          </button>
+          <button class="secondary" id="cancelVerificationButton">
+            <i class="fas fa-times"></i> إلغاء
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="container">
     <header>
-      <div class="logo">ع.و</div>
-      <div>
-        <h1>عبد الوهاب عبد الواحد الريمي</h1>
-        <p class="lead">مطور واجهات أمامية، مصمم تجربة مستخدم، ومطور تطبيقات بايثون</p>
+      <div class="header-top">
+        <!-- شعار الصفحة -->
+        <div class="logo-container">
+          <img src="https://st-albasra.com/wp-content/uploads/2025/03/iridium-solutions-it-communication-solutions-provider-iraq-service-6-connectivity-768x438-1.jpg" alt="شعار عبد الوهاب" 
+               class="logo-img"
+               onerror="this.src='https://via.placeholder.com/60/8B5FBF/FFFFFF?text=AW'">
+        </div>
+      </div>
+      
+      <div class="header-content">
+        <!-- الصورة الشخصية -->
+        <div class="profile-container">
+          <img src="https://via.placeholder.com/120/8B5FBF/FFFFFF?text=عبد+الوهاب" 
+               alt="صورة عبد الوهاب الريمي" 
+               class="profile-image"
+               id="profileImage">
+          <div class="profile-overlay">
+            <button id="changeImageButton">
+              <i class="fas fa-camera"></i> تغيير الصورة
+            </button>
+          </div>
+          <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+        </div>
+        
+        <div>
+          <h1>أفكار برمجية</h1>
+          <h4>تحت أشرف/عبد الوهاب عبد الواحد الريمي</h4>
+          <p class="lead">مطور واجهات أمامية، مصمم تجربة مستخدم، ومطور تطبيقات بايثون</p>
+        </div>
       </div>
     </header>
 
@@ -1062,15 +1310,145 @@
             <div class="tile">تطبيقات بايثون<br><span class="muted">Python Applications</span></div>
           </div>
 
-          <h2>المهارات التقنية</h2>
-          <ul class="muted">
-            <li>HTML5, CSS3, JavaScript</li>
-            <li>React, Vue.js</li>
-            <li>Python, Django, Flask</li>
-            <li>التصميم المتجاوب وتجربة المستخدم</li>
-            <li>أدوات التصميم (Figma, Adobe XD)</li>
-            <li>Git وإدارة المشاريع</li>
-          </ul>
+          <!-- قسم جديد: المهارات التقنية المصغرة -->
+          <div class="skills-section">
+            <h3><i class="fas fa-code"></i> المهارات التقنية</h3>
+            <p class="skills-description">مجموعة من المهارات والتقنيات التي أتقنها وأستخدمها في مشاريعي</p>
+            
+            <div class="skills-grid">
+              <!-- React -->
+              <div class="skill-card" data-skill="react">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" 
+                     alt="React" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/61DAFB/20232A?text=R'">
+                <div class="skill-name">React</div>
+                <div class="skill-category">Frontend</div>
+              </div>
+              
+              <!-- Vue.js -->
+              <div class="skill-card" data-skill="vue">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" 
+                     alt="Vue.js" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/42B883/35495E?text=V'">
+                <div class="skill-name">Vue.js</div>
+                <div class="skill-category">Frontend</div>
+              </div>
+              
+              <!-- Python -->
+              <div class="skill-card" data-skill="python">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" 
+                     alt="Python" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/3776AB/FFD43B?text=Py'">
+                <div class="skill-name">Python</div>
+                <div class="skill-category">Backend</div>
+              </div>
+              
+              <!-- Django -->
+              <div class="skill-card" data-skill="django">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" 
+                     alt="Django" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/092E20/FFFFFF?text=Dj'">
+                <div class="skill-name">Django</div>
+                <div class="skill-category">Backend</div>
+              </div>
+              
+              <!-- Flask -->
+              <div class="skill-card" data-skill="flask">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" 
+                     alt="Flask" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/000000/FFFFFF?text=Fl'">
+                <div class="skill-name">Flask</div>
+                <div class="skill-category">Backend</div>
+              </div>
+              
+              <!-- Responsive Design -->
+              <div class="skill-card" data-skill="responsive">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" 
+                     alt="Responsive Design" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/264DE4/FFFFFF?text=RWD'">
+                <div class="skill-name">التصميم المتجاوب</div>
+                <div class="skill-category">UI/UX</div>
+              </div>
+              
+              <!-- Figma -->
+              <div class="skill-card" data-skill="figma">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" 
+                     alt="Figma" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/F24E1E/FFFFFF?text=Fig'">
+                <div class="skill-name">Figma</div>
+                <div class="skill-category">Design</div>
+              </div>
+              
+              <!-- Adobe XD -->
+              <div class="skill-card" data-skill="xd">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg" 
+                     alt="Adobe XD" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/FF61F6/470137?text=XD'">
+                <div class="skill-name">Adobe XD</div>
+                <div class="skill-category">Design</div>
+              </div>
+              
+              <!-- Git -->
+              <div class="skill-card" data-skill="git">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" 
+                     alt="Git" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/F05032/FFFFFF?text=Git'">
+                <div class="skill-name">Git</div>
+                <div class="skill-category">Tools</div>
+              </div>
+              
+              <!-- HTML5 -->
+              <div class="skill-card" data-skill="html">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" 
+                     alt="HTML5" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/E34F26/FFFFFF?text=H5'">
+                <div class="skill-name">HTML5</div>
+                <div class="skill-category">Frontend</div>
+              </div>
+              
+              <!-- CSS3 -->
+              <div class="skill-card" data-skill="css">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" 
+                     alt="CSS3" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/264DE4/FFFFFF?text=CSS'">
+                <div class="skill-name">CSS3</div>
+                <div class="skill-category">Frontend</div>
+              </div>
+              
+              <!-- JavaScript -->
+              <div class="skill-card" data-skill="js">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" 
+                     alt="JavaScript" 
+                     class="skill-image"
+                     onerror="this.src='https://via.placeholder.com/60/F7DF1E/000000?text=JS'">
+                <div class="skill-name">JavaScript</div>
+                <div class="skill-category">Frontend</div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+              <h4>تفاصيل المهارات التقنية</h4>
+              <ul class="muted">
+                <li>HTML5, CSS3, JavaScript - إنشاء مواقع ويب تفاعلية وجذابة</li>
+                <li>React, Vue.js - تطوير واجهات مستخدم معقدة وتفاعلية</li>
+                <li>Python, Django, Flask - تطوير تطبيقات ويب وحلول برمجية متقدمة</li>
+                <li>التصميم المتجاوب وتجربة المستخدم - تصميم يتكيف مع جميع الأجهزة</li>
+                <li>أدوات التصميم (Figma, Adobe XD) - تصميم واجهات مستخدم احترافية</li>
+                <li>Git وإدارة المشاريع - تنظيم العمل والتعاون في الفرق</li>
+              </ul>
+            </div>
+          </div>
 
           <div class="python-section">
             <h3><i class="fab fa-python"></i> تطوير التطبيقات باستخدام بايثون</h3>
@@ -1097,8 +1475,10 @@
           <div class="project-showcase">
             <div class="project-grid">
               <div class="project-card">
-                <div class="project-image">
-                  <i class="fas fa-shopping-cart"></i>
+                <div class="image-frame">
+                  <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                       alt="متجر إلكتروني" 
+                       class="project-image-real">
                 </div>
                 <div class="project-content">
                   <h3>متجر إلكتروني</h3>
@@ -1112,8 +1492,10 @@
               </div>
               
               <div class="project-card">
-                <div class="project-image">
-                  <i class="fas fa-chart-line"></i>
+                <div class="image-frame">
+                  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                       alt="تحليلات البيانات" 
+                       class="project-image-real">
                 </div>
                 <div class="project-content">
                   <h3>منصة تحليلات البيانات</h3>
@@ -1127,8 +1509,10 @@
               </div>
               
               <div class="project-card">
-                <div class="project-image">
-                  <i class="fas fa-robot"></i>
+                <div class="image-frame">
+                  <img src="https://images.unsplash.com/photo-1535378917042-10a22c95931a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                       alt="الذكاء الاصطناعي" 
+                       class="project-image-real">
                 </div>
                 <div class="project-content">
                   <h3>مساعد ذكي</h3>
@@ -1458,6 +1842,195 @@
   </div>
 
   <script>
+    // نظام الوضع الليلي/النهاري
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+
+    // تحقق من التفضيل المحفوظ
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.className = 'fas fa-moon';
+        themeToggle.title = 'التحويل إلى الوضع النهاري';
+      } else {
+        themeIcon.className = 'fas fa-sun';
+        themeToggle.title = 'التحويل إلى الوضع الليلي';
+      }
+    }
+
+    // نظام رمز التحقق لتغيير الصورة الشخصية
+    const verificationOverlay = document.getElementById('verificationOverlay');
+    const changeImageButton = document.getElementById('changeImageButton');
+    const verifyButton = document.getElementById('verifyButton');
+    const cancelVerificationButton = document.getElementById('cancelVerificationButton');
+    const verificationCodeInput = document.getElementById('verificationCode');
+    const imageUpload = document.getElementById('imageUpload');
+    const profileImage = document.getElementById('profileImage');
+    
+    // الرمز الصحيح لتغيير الصورة
+    const correctCode = '775247172Mu';
+    
+    // اسم الملف الثابت للصورة الشخصية على Firebase
+    const PROFILE_IMAGE_FILENAME = 'profile_image.jpg';
+    
+    // تهيئة Firebase Storage
+    let storage;
+    try {
+      storage = firebase.storage();
+    } catch (error) {
+      console.log('Firebase غير مهيأ، سيتم استخدام localStorage كبديل');
+    }
+    
+    // تحميل الصورة الشخصية من Firebase
+    async function loadProfileImage() {
+      try {
+        if (!storage) {
+          // إذا لم يكن Firebase متاحاً، استخدم localStorage
+          const savedProfileImage = localStorage.getItem('profileImage');
+          if (savedProfileImage) {
+            profileImage.src = savedProfileImage;
+          }
+          return;
+        }
+        
+        // الحصول على رابط الصورة من Firebase Storage
+        const imageRef = storage.ref().child(PROFILE_IMAGE_FILENAME);
+        const imageUrl = await imageRef.getDownloadURL();
+        
+        // تحميل الصورة
+        profileImage.src = imageUrl;
+        
+        // حفظ الرابط مؤقتاً في localStorage لتحسين الأداء
+        localStorage.setItem('profileImageUrl', imageUrl);
+        
+      } catch (error) {
+        console.log('لم يتم العثور على صورة شخصية على الخادم');
+        
+        // استخدام الصورة المحلية المخزنة مسبقاً كبديل
+        const savedProfileImage = localStorage.getItem('profileImage');
+        if (savedProfileImage) {
+          profileImage.src = savedProfileImage;
+        }
+      }
+    }
+    
+    // رفع الصورة الشخصية إلى Firebase
+    async function uploadProfileImage(file) {
+      try {
+        if (!storage) {
+          throw new Error('Firebase غير متوفر');
+        }
+        
+        // إنشاء مرجع للصورة
+        const imageRef = storage.ref().child(PROFILE_IMAGE_FILENAME);
+        
+        // رفع الصورة
+        await imageRef.put(file);
+        
+        // الحصول على رابط جديد للصورة
+        const imageUrl = await imageRef.getDownloadURL();
+        
+        // تحديث الصورة في الواجهة
+        profileImage.src = imageUrl;
+        
+        // حفظ الرابط في localStorage
+        localStorage.setItem('profileImageUrl', imageUrl);
+        
+        alert('تم تحديث الصورة الشخصية بنجاح! ستظهر الصورة لجميع المستخدمين.');
+        return true;
+        
+      } catch (error) {
+        console.error('خطأ في رفع الصورة:', error);
+        
+        // رفع الصورة فشل، استخدم localStorage كبديل
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileImage.src = e.target.result;
+          localStorage.setItem('profileImage', e.target.result);
+          alert('تم تحديث الصورة الشخصية محلياً فقط (لن تظهر للمستخدمين الآخرين)');
+        };
+        reader.readAsDataURL(file);
+        return false;
+      }
+    }
+    
+    // فتح نافذة التحقق عند النقر على تغيير الصورة
+    changeImageButton.addEventListener('click', () => {
+      verificationOverlay.classList.add('active');
+      verificationCodeInput.value = '';
+      verificationCodeInput.focus();
+    });
+    
+    // التحقق من الرمز
+    verifyButton.addEventListener('click', async () => {
+      const enteredCode = verificationCodeInput.value.trim();
+      
+      if (enteredCode === correctCode) {
+        // إخفاء نافذة التحقق
+        verificationOverlay.classList.remove('active');
+        
+        // فتح نافذة اختيار الصورة
+        imageUpload.click();
+      } else {
+        alert('رمز التحقق غير صحيح! يرجى المحاولة مرة أخرى.');
+        verificationCodeInput.value = '';
+        verificationCodeInput.focus();
+      }
+    });
+    
+    // إلغاء التحقق
+    cancelVerificationButton.addEventListener('click', () => {
+      verificationOverlay.classList.remove('active');
+    });
+    
+    // إخفاء نافذة التحقق عند النقر خارجها
+    verificationOverlay.addEventListener('click', (e) => {
+      if (e.target === verificationOverlay) {
+        verificationOverlay.classList.remove('active');
+      }
+    });
+    
+    // معالجة اختيار الصورة بعد التحقق الناجح
+    imageUpload.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      if (!file.type.startsWith('image/')) {
+        alert('الرجاء اختيار ملف صورة فقط');
+        return;
+      }
+      
+      // تحقق من حجم الصورة (حد أقصى 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('حجم الصورة كبير جداً! الحد الأقصى هو 5MB');
+        return;
+      }
+      
+      // إظهار رسالة تحميل
+      alert('جاري رفع الصورة... قد يستغرق بضع ثوانٍ');
+      
+      // رفع الصورة إلى Firebase
+      await uploadProfileImage(file);
+      
+      // إعادة تعيين حقل الرفع
+      imageUpload.value = '';
+    });
+
+    // تحميل الصورة الشخصية عند فتح الصفحة
+    document.addEventListener('DOMContentLoaded', loadProfileImage);
+
     // وظائف التنقل بين الصفحات
     document.querySelectorAll('.nav-tab').forEach(tab => {
       tab.addEventListener('click', () => {
@@ -1704,46 +2277,53 @@
       window.open(telegramUrl, '_blank');
     });
 
-    // إشعار الخروج
-    const notificationOverlay = document.getElementById('notificationOverlay');
-    const stayButton = document.getElementById('stayButton');
-    const leaveButton = document.getElementById('leaveButton');
-    
-    let showNotification = true;
-    
-    // عرض الإشعار عند محاولة مغادرة الصفحة
-    window.addEventListener('beforeunload', function (e) {
-      if (showNotification) {
-        // منع الإجراء الافتراضي
-        e.preventDefault();
-        // عرض الإشعار
-        notificationOverlay.classList.add('active');
-        // رسالة تأكيد الخروج (للمتصفحات القديمة)
-        e.returnValue = '';
-      }
+    // تفاعل مع بطاقات المهارات
+    document.querySelectorAll('.skill-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const skill = this.getAttribute('data-skill');
+        const skillName = this.querySelector('.skill-name').textContent;
+        alert(`مهارة: ${skillName}\n\n${getSkillDescription(skill)}`);
+      });
     });
-    
-    // إخفاء الإشعار عند النقر على "البقاء في الموقع"
-    stayButton.addEventListener('click', function() {
-      notificationOverlay.classList.remove('active');
-      showNotification = false;
-    });
-    
-    // السماح بالخروج عند النقر على "متابعة التصفح"
-    leaveButton.addEventListener('click', function() {
-      notificationOverlay.classList.remove('active');
-      showNotification = false;
-      // السماح بالمغادرة بعد إخفاء الإشعار
-      setTimeout(() => {
-        window.close(); // أو يمكن استخدام window.location.href = 'about:blank'
-      }, 100);
-    });
-    
-    // إخفاء الإشعار عند النقر خارج النافذة
-    notificationOverlay.addEventListener('click', function(e) {
-      if (e.target === notificationOverlay) {
-        notificationOverlay.classList.remove('active');
-      }
+
+    // وصف لكل مهارة
+    function getSkillDescription(skill) {
+      const descriptions = {
+        'react': 'إطار عمل JavaScript مفتوح المصدر لبناء واجهات المستخدم. أستخدمه لبناء تطبيقات ويب تفاعلية معقدة.',
+        'vue': 'إطار عمل JavaScript تقدمي لبناء واجهات المستخدم. سهل التعلم وقوي للغاية.',
+        'python': 'لغة برمجة عالية المستوى، قوية وسهلة التعلم. أستخدمها في تطوير الويب، تحليل البيانات، والأتمتة.',
+        'django': 'إطار عمل Python عالي المستوى يشجع على التطوير السريع والتصميم النظيف.',
+        'flask': 'إطار عمل Python خفيف الوزن ومرن لتطوير تطبيقات الويب.',
+        'responsive': 'تصميم مواقع ويب تتكيف مع جميع أحجام الشاشات والأجهزة.',
+        'figma': 'أداة تصميم واجهات المستخدم قائمة على المتصفح، مثالية للعمل التعاوني.',
+        'xd': 'أداة تصميم وتجربة المستخدم من Adobe لتصميم واجهات ويب وتطبيقات جوال.',
+        'git': 'نظام تحكم في الإصدارات لتتبع التغييرات في الكود والعمل التعاوني.',
+        'html': 'لغة ترميز تستخدم في إنشاء هياكل صفحات الويب.',
+        'css': 'لغة تنسيق تستخدم في تصميم مظهر صفحات الويب.',
+        'js': 'لغة برمجة تجعل صفحات الويب تفاعلية وديناميكية.'
+      };
+      
+      return descriptions[skill] || 'مهارة تقنية متقدمة أستخدمها في مشاريعي البرمجية.';
+    }
+
+    // تهيئة الصور عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      // إضافة تأثيرات للصور
+      const images = document.querySelectorAll('img');
+      images.forEach(img => {
+        img.addEventListener('load', function() {
+          this.style.opacity = '1';
+        });
+        img.style.transition = 'opacity 0.3s ease';
+        img.style.opacity = img.complete ? '1' : '0';
+      });
+      
+      // إضافة تأثير خاص لبطاقات المهارات
+      const skillCards = document.querySelectorAll('.skill-card');
+      skillCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.05}s`;
+        card.style.animation = 'fadeIn 0.5s ease forwards';
+      });
     });
   </script>
 </body>
