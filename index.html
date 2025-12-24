@@ -31,6 +31,7 @@
       --whatsapp: #25D366;
       --telegram: #0088cc;
       --youtube: #FF0000;
+      --facebook: #1877F2;
     }
 
     /* متغيرات الوضع النهاري (الفاتح) */
@@ -691,6 +692,10 @@
       background: var(--youtube);
     }
     
+    .social-link.facebook:hover {
+      background: var(--facebook);
+    }
+    
     .contact-form {
       display: flex;
       flex-direction: column;
@@ -1175,6 +1180,15 @@
       overflow: hidden;
     }
     
+    .video-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    
     .video-thumbnail::before {
       content: '';
       position: absolute;
@@ -1185,6 +1199,7 @@
       background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
       transform: translateX(-100%);
       transition: transform 0.8s;
+      z-index: 1;
     }
     
     .video-card:hover .video-thumbnail::before {
@@ -1202,12 +1217,21 @@
       color: white;
       font-size: 24px;
       z-index: 2;
+      position: relative;
       transition: all 0.3s ease;
+    }
+    
+    .video-card.facebook-video .video-play-button {
+      background: var(--facebook);
     }
     
     .video-card:hover .video-play-button {
       transform: scale(1.1);
       box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    }
+    
+    .video-card.facebook-video:hover .video-play-button {
+      box-shadow: 0 0 30px rgba(24, 119, 242, 0.5);
     }
     
     .video-content {
@@ -1268,6 +1292,18 @@
     
     .youtube-badge {
       background: var(--youtube);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .facebook-badge {
+      background: var(--facebook);
       color: white;
       padding: 4px 12px;
       border-radius: 20px;
@@ -1406,6 +1442,14 @@
     .video-player-link:hover {
       background: #cc0000;
       transform: translateY(-2px);
+    }
+    
+    .video-player-link.facebook {
+      background: var(--facebook);
+    }
+    
+    .video-player-link.facebook:hover {
+      background: #0d5fd8;
     }
     
     @media (max-width: 968px) {
@@ -1589,6 +1633,9 @@
         <div class="video-player-actions">
           <a href="#" class="video-player-link" id="videoPlayerYoutubeLink" target="_blank">
             <i class="fab fa-youtube"></i> مشاهدة على يوتيوب
+          </a>
+          <a href="#" class="video-player-link facebook" id="videoPlayerFacebookLink" target="_blank" style="display: none;">
+            <i class="fab fa-facebook"></i> مشاهدة على فيسبوك
           </a>
           <a href="https://studio-vert-xi.vercel.app/" class="video-player-link" id="videoPlayerProjectLink" target="_blank" style="background: var(--primary); display: none;">
             <i class="fas fa-external-link-alt"></i> زيارة المشروع
@@ -1903,15 +1950,19 @@
           <!-- فلتر الفيديوهات -->
           <div class="video-filter">
             <button class="active" data-filter="all">الكل</button>
+            <button data-filter="youtube">يوتيوب</button>
+            <button data-filter="facebook">فيسبوك</button>
             <button data-filter="tutorial">الدروس التعليمية</button>
-            <button data-filter="demo">عروض المشاريع</button>
             <button data-filter="accounting">المحاسب الذكي</button>
           </div>
           
           <div class="videos-grid">
-            <!-- فيديو 1 -->
-            <div class="video-card" data-category="tutorial" data-video-id="YpiI3ZI5AUY">
+            <!-- فيديو 1 - يوتيوب -->
+            <div class="video-card" data-category="youtube tutorial" data-video-id="YpiI3ZI5AUY">
               <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="تعلم كيف تنشئ حساب بريد إلكتروني" 
+                     class="project-image-real">
                 <div class="video-play-button">
                   <i class="fas fa-play"></i>
                 </div>
@@ -1922,7 +1973,7 @@
                 <p class="video-description">مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.</p>
                 <div class="video-meta">
                   <span class="youtube-badge">
-                    <i class="fas fa-video"></i> تعليمي
+                    <i class="fab fa-youtube"></i> يوتيوب
                   </span>
                   <button class="video-play-btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
                     <i class="fas fa-play"></i> تشغيل الفيديو
@@ -1931,9 +1982,12 @@
               </div>
             </div>
             
-            <!-- فيديو 2 -->
-            <div class="video-card" data-category="demo" data-video-id="WrT3YQJ4X9o">
+            <!-- فيديو 2 - يوتيوب -->
+            <div class="video-card" data-category="youtube tutorial" data-video-id="WrT3YQJ4X9o">
               <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="التسجيل في الحساب الإبداعي" 
+                     class="project-image-real">
                 <div class="video-play-button">
                   <i class="fas fa-play"></i>
                 </div>
@@ -1944,7 +1998,7 @@
                 <p class="video-description">شاهد كيف يمكنك التسجيل في حسابك الإبداعي بخطوات بسيطة وسريعة للانطلاق في عالم الإبداع.</p>
                 <div class="video-meta">
                   <span class="youtube-badge">
-                    <i class="fas fa-clipboard-check"></i> تسجيل
+                    <i class="fab fa-youtube"></i> يوتيوب
                   </span>
                   <button class="video-play-btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
                     <i class="fas fa-play"></i> تشغيل الفيديو
@@ -1953,9 +2007,12 @@
               </div>
             </div>
             
-            <!-- فيديو 3 -->
-            <div class="video-card" data-category="accounting" data-video-id="qap0l8YCNV4" data-project-link="https://studio-vert-xi.vercel.app/">
+            <!-- فيديو 3 - يوتيوب -->
+            <div class="video-card" data-category="youtube accounting" data-video-id="qap0l8YCNV4" data-project-link="https://studio-vert-xi.vercel.app/">
               <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="نظام المحاسب الذكي" 
+                     class="project-image-real">
                 <div class="video-play-button">
                   <i class="fas fa-play"></i>
                 </div>
@@ -1966,7 +2023,7 @@
                 <p class="video-description">💼 نظام المحاسب الذكي المتكامل - أول تطبيق تجريبي يهدف لتقديم تجربة محاسبية ذكية وسهلة الاستخدام.</p>
                 <div class="video-meta">
                   <span class="youtube-badge">
-                    <i class="fas fa-calculator"></i> محاسبة
+                    <i class="fab fa-youtube"></i> يوتيوب
                   </span>
                   <button class="video-play-btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
                     <i class="fas fa-play"></i> تشغيل الفيديو
@@ -1975,9 +2032,12 @@
               </div>
             </div>
             
-            <!-- فيديو 4 -->
-            <div class="video-card" data-category="accounting" data-video-id="A00AI3WFbYA" data-project-link="https://studio-vert-xi.vercel.app/">
+            <!-- فيديو 4 - يوتيوب -->
+            <div class="video-card" data-category="youtube accounting" data-video-id="A00AI3WFbYA" data-project-link="https://studio-vert-xi.vercel.app/">
               <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="إنشاء فاتورة" 
+                     class="project-image-real">
                 <div class="video-play-button">
                   <i class="fas fa-play"></i>
                 </div>
@@ -1988,7 +2048,7 @@
                 <p class="video-description">💼 نظام المحاسب الذكي المتكامل - أنشئ الفواتير واطبعها، احفظها في جهازك، وشاركها عبر واتساب بسهولة.</p>
                 <div class="video-meta">
                   <span class="youtube-badge">
-                    <i class="fas fa-file-invoice"></i> فواتير
+                    <i class="fab fa-youtube"></i> يوتيوب
                   </span>
                   <button class="video-play-btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
                     <i class="fas fa-play"></i> تشغيل الفيديو
@@ -1997,9 +2057,12 @@
               </div>
             </div>
             
-            <!-- فيديو 5 -->
-            <div class="video-card" data-category="accounting demo" data-video-id="V5Umbzrt6Gk" data-project-link="https://studio-vert-xi.vercel.app/">
+            <!-- فيديو 5 - يوتيوب -->
+            <div class="video-card" data-category="youtube accounting" data-video-id="V5Umbzrt6Gk" data-project-link="https://studio-vert-xi.vercel.app/">
               <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="نظام المحاسب الذكي المتكامل" 
+                     class="project-image-real">
                 <div class="video-play-button">
                   <i class="fas fa-play"></i>
                 </div>
@@ -2010,11 +2073,146 @@
                 <p class="video-description">💼 نظام المحاسب الذكي المتكامل - أول تطبيق تجريبي يهدف لتقديم تجربة محاسبية ذكية وسهلة الاستخدام.</p>
                 <div class="video-meta">
                   <span class="youtube-badge">
-                    <i class="fas fa-desktop"></i> عرض
+                    <i class="fab fa-youtube"></i> يوتيوب
                   </span>
                   <button class="video-play-btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
                     <i class="fas fa-play"></i> تشغيل الفيديو
                   </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو 6 - تأجير السيارات (فيسبوك) -->
+            <div class="video-card facebook-video" data-category="facebook" data-facebook-video="https://www.facebook.com/share/v/1Bd4G6d6kG/">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="تأجير السيارات" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">تأجير السيارات</h3>
+                <p class="video-description">إذا كنت تبحث عن متجر إلكتروني حديث، متطور، وسريع يعمل على جميع الأجهزة ويعطي تجربة مستخدم راقية — فأنت في المكان الصحيح!</p>
+                <div class="video-meta">
+                  <span class="facebook-badge">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                    <i class="fas fa-play"></i> تشغيل الفيديو
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو 7 - انشاء صفحه ويب الأعمال (فيسبوك) -->
+            <div class="video-card facebook-video" data-category="facebook" data-facebook-video="https://www.facebook.com/share/v/1PHa76BhCQ/" data-project-link="https://general-contracting-nine.vercel.app/">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="انشاء صفحه ويب الأعمال" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">انشاء صفحه ويب الأعمال</h3>
+                <p class="video-description">شركة الريمي للمقاولات العامة تقدم خدمات متكاملة في مجال البناء والتشطيب تحت إشراف جمال الريمي.</p>
+                <div class="video-meta">
+                  <span class="facebook-badge">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <div>
+                    <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px; margin-right: 10px;">
+                      <i class="fas fa-play"></i> تشغيل الفيديو
+                    </button>
+                    <a href="https://general-contracting-nine.vercel.app/" class="video-project-link" target="_blank">
+                      <i class="fas fa-external-link-alt"></i> زيارة المشروع
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو 8 - انشاء حساب إبداعي 1 (فيسبوك) -->
+            <div class="video-card facebook-video" data-category="facebook tutorial" data-facebook-video="https://www.facebook.com/share/v/1KPmA5eaKa/">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="انشاء حساب إبداعي" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">انشاء حساب إبداعي</h3>
+                <p class="video-description">أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.</p>
+                <div class="video-meta">
+                  <span class="facebook-badge">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                    <i class="fas fa-play"></i> تشغيل الفيديو
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو 9 - انشاء حساب إبداعي 2 (فيسبوك) -->
+            <div class="video-card facebook-video" data-category="facebook tutorial" data-facebook-video="https://www.facebook.com/share/v/1GF5V8EHyQ/">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="انشاء حساب إبداعي" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">انشاء حساب إبداعي</h3>
+                <p class="video-description">مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة. فقط املأ بياناتك في النموذج أدناه، واختر كلمة مرور قوية، لتبدأ رحلتك معنا بكل أمان ومتعة.</p>
+                <div class="video-meta">
+                  <span class="facebook-badge">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                    <i class="fas fa-play"></i> تشغيل الفيديو
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو 10 - لعبه الثعبان بالذكاء الاصطناعي (فيسبوك) -->
+            <div class="video-card facebook-video" data-category="facebook" data-facebook-video="https://www.facebook.com/share/v/17QZsvDFp1/" data-project-link="https://y-lan-oyunu.vercel.app/">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="لعبه الثعبان بالذكاء الاصطناعي" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">لعبه الثعبان بالذكاء الاصطناعي</h3>
+                <p class="video-description">لعبة الثعبان بالذكاء الاصطناعي ليست أول مشروع لي في هذا المجال، لكنها البداية في رحلتي مع الذكاء الاصطناعي، وبإذن الله القادم سيكون أفضل وأقوى." 🤖💪</p>
+                <div class="video-meta">
+                  <span class="facebook-badge">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <div>
+                    <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px; margin-right: 10px;">
+                      <i class="fas fa-play"></i> تشغيل الفيديو
+                    </button>
+                    <a href="https://y-lan-oyunu.vercel.app/" class="video-project-link" target="_blank">
+                      <i class="fas fa-external-link-alt"></i> زيارة المشروع
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2034,6 +2232,9 @@
               </a>
               <button onclick="openYouTubePlaylist()" style="background: var(--youtube); color: white; padding: 12px 25px;">
                 <i class="fab fa-youtube"></i> مشاهدة على يوتيوب
+              </button>
+              <button onclick="openFacebookPage()" style="background: var(--facebook); color: white; padding: 12px 25px;">
+                <i class="fab fa-facebook"></i> صفحة فيسبوك
               </button>
             </div>
           </div>
@@ -2118,47 +2319,47 @@
                 <span class="idea-status">قيد التطوير</span>
               </div>
               <p class="muted">أداة متقدمة لتحليل أداء مواقع الويب وتقديم توصيات لتحسين السرعة والتجربة.</p>
-              <div class="idea-tags">
-                <span class="idea-tag python-tag">Python</span>
-                    <span class="idea-tag">Performance</span>
-                    <span class="idea-tag">Analytics</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="idea-form">
-                <h3>شاركنا أفكارك البرمجية</h3>
-                <p class="muted">هل لديك فكرة برمجية تريد تطويرها؟ شاركنا أفكارك وسنعمل معًا على تحويلها إلى واقع.</p>
-                
-                <div class="contact-form">
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="idea-name">اسم الفكرة</label>
-                      <input type="text" id="idea-name" placeholder="أدخل اسم فكرتك">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label for="idea-category">التصنيف</label>
-                      <select id="idea-category" style="padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: inherit; font-family: inherit; width: 100%;">
-                        <option value="">اختر التصنيف</option>
-                        <option value="web">تطوير الويب</option>
-                        <option value="mobile">تطبيقات الجوال</option>
-                        <option value="ai">الذكاء الاصطناعي</option>
-                        <option value="automation">الأتمتة</option>
-                        <option value="data">تحليل البيانات</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="idea-description">وصف الفكرة</label>
-                    <textarea id="idea-description" rows="4" placeholder="صف فكرتك بالتفصيل..."></textarea>
-                  </div>
-                  
-                  <button>إرسال الفكرة</button>
+                <div class="idea-tags">
+                  <span class="idea-tag python-tag">Python</span>
+                  <span class="idea-tag">Performance</span>
+                  <span class="idea-tag">Analytics</span>
                 </div>
               </div>
             </div>
+
+            <div class="idea-form">
+              <h3>شاركنا أفكارك البرمجية</h3>
+              <p class="muted">هل لديك فكرة برمجية تريد تطويرها؟ شاركنا أفكارك وسنعمل معًا على تحويلها إلى واقع.</p>
+              
+              <div class="contact-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="idea-name">اسم الفكرة</label>
+                    <input type="text" id="idea-name" placeholder="أدخل اسم فكرتك">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="idea-category">التصنيف</label>
+                    <select id="idea-category" style="padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: inherit; font-family: inherit; width: 100%;">
+                      <option value="">اختر التصنيف</option>
+                      <option value="web">تطوير الويب</option>
+                      <option value="mobile">تطبيقات الجوال</option>
+                      <option value="ai">الذكاء الاصطناعي</option>
+                      <option value="automation">الأتمتة</option>
+                      <option value="data">تحليل البيانات</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="idea-description">وصف الفكرة</label>
+                  <textarea id="idea-description" rows="4" placeholder="صف فكرتك بالتفصيل..."></textarea>
+                </div>
+                
+                <button>إرسال الفكرة</button>
+              </div>
+            </div>
+          </div>
       </section>
 
       <!-- صفحة فلسفة البرمجة -->
@@ -2325,8 +2526,11 @@
             <a href="#" class="social-link" aria-label="Twitter">
               <i class="fab fa-twitter"></i>
             </a>
-            <a href="#" class="social-link youtube" aria-label="YouTube" id="sidebarYouTube">
+            <a href="https://youtube.com/@nocheluz-l8p" class="social-link youtube" aria-label="YouTube" id="sidebarYouTube" target="_blank">
               <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.facebook.com/share/1C3q5F9tDD/" class="social-link facebook" aria-label="Facebook" id="sidebarFacebook" target="_blank">
+              <i class="fab fa-facebook"></i>
             </a>
           </div>
         </div>
@@ -2351,8 +2555,11 @@
         <a href="#" class="social-link telegram" aria-label="Telegram" id="footerTelegram">
           <i class="fab fa-telegram"></i>
         </a>
-        <a href="#" class="social-link youtube" aria-label="YouTube" id="footerYouTube">
+        <a href="https://youtube.com/@nocheluz-l8p" class="social-link youtube" aria-label="YouTube" id="footerYouTube" target="_blank">
           <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1C3q5F9tDD/" class="social-link facebook" aria-label="Facebook" id="footerFacebook" target="_blank">
+          <i class="fab fa-facebook"></i>
         </a>
       </div>
     </footer>
@@ -2730,6 +2937,8 @@
     const sendTelegram = document.getElementById('sendTelegram');
     const sidebarYouTube = document.getElementById('sidebarYouTube');
     const footerYouTube = document.getElementById('footerYouTube');
+    const sidebarFacebook = document.getElementById('sidebarFacebook');
+    const footerFacebook = document.getElementById('footerFacebook');
     
     const phoneNumber = '967775247172';
     const defaultMessage = 'مرحباً عبد الوهاب، أود التواصل معك بخصوص خدماتك البرمجية';
@@ -2737,7 +2946,10 @@
     const telegramUrl = `https://t.me/+${phoneNumber}`;
     
     // روابط يوتيوب
-    const youtubeUrl = 'https://www.youtube.com/';
+    const youtubeUrl = 'https://youtube.com/@nocheluz-l8p';
+    
+    // روابط فيسبوك
+    const facebookUrl = 'https://www.facebook.com/share/1C3q5F9tDD/';
     
     whatsappButton.addEventListener('click', () => {
       window.open(whatsappUrl, '_blank');
@@ -2766,6 +2978,17 @@
     footerYouTube.addEventListener('click', (e) => {
       e.preventDefault();
       window.open(youtubeUrl, '_blank');
+    });
+
+    // روابط فيسبوك
+    sidebarFacebook.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open(facebookUrl, '_blank');
+    });
+    
+    footerFacebook.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open(facebookUrl, '_blank');
     });
 
     // وظائف إرسال الرسالة عبر الواتساب والتليجرام
@@ -2851,6 +3074,7 @@
     const videoPlayerTitle = document.getElementById('videoPlayerTitle');
     const videoPlayerDescription = document.getElementById('videoPlayerDescription');
     const videoPlayerYoutubeLink = document.getElementById('videoPlayerYoutubeLink');
+    const videoPlayerFacebookLink = document.getElementById('videoPlayerFacebookLink');
     const videoPlayerProjectLink = document.getElementById('videoPlayerProjectLink');
     
     // بيانات الفيديوهات
@@ -2859,58 +3083,141 @@
         title: 'تعلم كيف تنشئ حساب بريد إلكتروني إبداعي عبر Visme',
         description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة. فقط املأ بياناتك في النموذج أدناه، واختر كلمة مرور قوية، لتبدأ رحلتك معنا بكل أمان ومتعة.',
         youtubeUrl: 'https://youtu.be/YpiI3ZI5AUY?si=gM0Vi7GRRTATswDc',
+        type: 'youtube',
         projectLink: null
       },
       'WrT3YQJ4X9o': {
         title: 'التسجيل في الحساب الإبداعي',
         description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.',
         youtubeUrl: 'https://youtube.com/shorts/WrT3YQJ4X9o?si=SoqTFgPtoYO9Cupg',
+        type: 'youtube',
         projectLink: null
       },
       'qap0l8YCNV4': {
         title: 'تثبيت تطبيق نظام المحاسب الذكي - النسخة التجريبية',
         description: '💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري، يهدف إلى تقديم تجربة محاسبية ذكية وسهلة الاستخدام. بإذن الله سيكون الإصدار القادم تطبيقًا حقيقيًا وكامل المميزات قريبًا. يمكن تثبيت وتجربة التطبيق الآن.',
         youtubeUrl: 'https://youtube.com/shorts/qap0l8YCNV4?si=8tXUKNnoZkGWRAdo',
+        type: 'youtube',
         projectLink: 'https://studio-vert-xi.vercel.app/'
       },
       'A00AI3WFbYA': {
         title: 'إنشاء فاتورة في نظام المحاسب الذكي',
         description: '💼 نظام المحاسب الذكي المتكامل - تطبيق تجريبي ذكي لإدارة الحسابات. 🧾 أنشئ الفواتير واطبعها، احفظها في جهازك، وشاركها عبر واتساب بسهولة. 🚀 قريبًا الإصدار الكامل بمزايا متقدمة.',
         youtubeUrl: 'https://youtube.com/shorts/A00AI3WFbYA?si=d4zEz69y0iwKkkTA',
+        type: 'youtube',
         projectLink: 'https://studio-vert-xi.vercel.app/'
       },
       'V5Umbzrt6Gk': {
         title: 'نظام المحاسب الذكي المتكامل - النسخة التجريبية',
         description: '💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري، يهدف إلى تقديم تجربة محاسبية ذكية وسهلة الاستخدام. 📱 يمكنك الآن تثبيته وتجربته للتعرف على فكرته وأدواته الأساسية. بإذن الله سيكون الإصدار القادم تطبيقًا حقيقيًا وكامل المميزات قريبًا.',
         youtubeUrl: 'https://youtube.com/shorts/V5Umbzrt6Gk?si=ILkKFbBdGXFmJnRw',
+        type: 'youtube',
         projectLink: 'https://studio-vert-xi.vercel.app/'
+      },
+      'facebook-1Bd4G6d6kG': {
+        title: 'تأجير السيارات',
+        description: 'إذا كنت تبحث عن متجر إلكتروني حديث، متطور، وسريع يعمل على جميع الأجهزة ويعطي تجربة مستخدم راقية — فأنت في المكان الصحيح!',
+        facebookUrl: 'https://www.facebook.com/share/v/1Bd4G6d6kG/',
+        type: 'facebook',
+        projectLink: null
+      },
+      'facebook-1PHa76BhCQ': {
+        title: 'انشاء صفحه ويب الأعمال',
+        description: 'شركة الريمي للمقاولات العامة تقدم خدمات متكاملة في مجال البناء والتشطيب تحت إشراف جمال الريمي.',
+        facebookUrl: 'https://www.facebook.com/share/v/1PHa76BhCQ/',
+        type: 'facebook',
+        projectLink: 'https://general-contracting-nine.vercel.app/'
+      },
+      'facebook-1KPmA5eaKa': {
+        title: 'انشاء حساب إبداعي',
+        description: 'أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.',
+        facebookUrl: 'https://www.facebook.com/share/v/1KPmA5eaKa/',
+        type: 'facebook',
+        projectLink: null
+      },
+      'facebook-1GF5V8EHyQ': {
+        title: 'انشاء حساب إبداعي',
+        description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة. فقط املأ بياناتك في النموذج أدناه، واختر كلمة مرور قوية، لتبدأ رحلتك معنا بكل أمان ومتعة.',
+        facebookUrl: 'https://www.facebook.com/share/v/1GF5V8EHyQ/',
+        type: 'facebook',
+        projectLink: null
+      },
+      'facebook-17QZsvDFp1': {
+        title: 'لعبه الثعبان بالذكاء الاصطناعي',
+        description: 'لعبة الثعبان بالذكاء الاصطناعي ليست أول مشروع لي في هذا المجال، لكنها البداية في رحلتي مع الذكاء الاصطناعي، وبإذن الله القادم سيكون أفضل وأقوى." 🤖💪',
+        facebookUrl: 'https://www.facebook.com/share/v/17QZsvDFp1/',
+        type: 'facebook',
+        projectLink: 'https://y-lan-oyunu.vercel.app/'
       }
     };
     
     // فتح مشغل الفيديو
-    function openVideoPlayer(videoId) {
-      const videoData = videosData[videoId];
-      if (!videoData) return;
+    function openVideoPlayer(videoId, videoData = null) {
+      let videoInfo;
+      
+      if (videoData) {
+        videoInfo = videoData;
+      } else {
+        videoInfo = videosData[videoId];
+        if (!videoInfo) return;
+      }
       
       // تحديث معلومات الفيديو
-      videoPlayerTitle.textContent = videoData.title;
-      videoPlayerDescription.textContent = videoData.description;
-      videoPlayerYoutubeLink.href = videoData.youtubeUrl;
+      videoPlayerTitle.textContent = videoInfo.title;
+      videoPlayerDescription.textContent = videoInfo.description;
+      
+      // إخفاء/إظهار الروابط حسب نوع الفيديو
+      if (videoInfo.type === 'youtube') {
+        videoPlayerYoutubeLink.href = videoInfo.youtubeUrl;
+        videoPlayerYoutubeLink.style.display = 'inline-flex';
+        videoPlayerFacebookLink.style.display = 'none';
+        
+        // تحميل الفيديو من يوتيوب
+        videoPlayerIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&controls=1&showinfo=1`;
+      } else if (videoInfo.type === 'facebook') {
+        videoPlayerFacebookLink.href = videoInfo.facebookUrl;
+        videoPlayerFacebookLink.style.display = 'inline-flex';
+        videoPlayerYoutubeLink.style.display = 'none';
+        
+        // تحميل الفيديو من فيسبوك
+        // فيسبوك لا يسمح بتضمين الفيديو مباشرة، لذلك نعرض رسالة
+        videoPlayerIframe.src = '';
+        videoPlayerIframe.innerHTML = `
+          <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#1e293b; color:white; padding:20px; text-align:center;">
+            <i class="fab fa-facebook" style="font-size:48px; color:#1877F2; margin-bottom:20px;"></i>
+            <h3>فيديو فيسبوك</h3>
+            <p style="margin:15px 0;">لفتح الفيديو على فيسبوك، اضغط على الزر أدناه</p>
+            <a href="${videoInfo.facebookUrl}" target="_blank" style="background:#1877F2; color:white; padding:12px 24px; border-radius:8px; text-decoration:none; margin-top:15px;">
+              <i class="fab fa-facebook"></i> فتح الفيديو على فيسبوك
+            </a>
+          </div>
+        `;
+      }
       
       // إظهار رابط المشروع إذا كان موجوداً
-      if (videoData.projectLink) {
-        videoPlayerProjectLink.href = videoData.projectLink;
+      if (videoInfo.projectLink) {
+        videoPlayerProjectLink.href = videoInfo.projectLink;
         videoPlayerProjectLink.style.display = 'inline-flex';
       } else {
         videoPlayerProjectLink.style.display = 'none';
       }
       
-      // تحميل الفيديو من يوتيوب
-      videoPlayerIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-      
       // إظهار مشغل الفيديو
       videoPlayerOverlay.classList.add('active');
       document.body.style.overflow = 'hidden'; // منع التمرير في الخلفية
+    }
+    
+    // فتح فيديو فيسبوك
+    function openFacebookVideo(facebookUrl, title, description, projectLink = null) {
+      const videoData = {
+        title: title,
+        description: description,
+        facebookUrl: facebookUrl,
+        type: 'facebook',
+        projectLink: projectLink
+      };
+      
+      openVideoPlayer('facebook-video', videoData);
     }
     
     // إغلاق مشغل الفيديو
@@ -2926,14 +3233,21 @@
         // منع فتح الفيديو إذا تم النقر على زر التشغيل
         if (e.target.closest('.video-play-btn')) {
           e.stopPropagation();
-          const videoId = card.getAttribute('data-video-id');
-          openVideoPlayer(videoId);
           return;
         }
         
         // فتح الفيديو عند النقر على البطاقة
         const videoId = card.getAttribute('data-video-id');
-        openVideoPlayer(videoId);
+        const facebookVideo = card.getAttribute('data-facebook-video');
+        const projectLink = card.getAttribute('data-project-link');
+        
+        if (facebookVideo) {
+          const title = card.querySelector('.video-title').textContent;
+          const description = card.querySelector('.video-description').textContent;
+          openFacebookVideo(facebookVideo, title, description, projectLink);
+        } else if (videoId) {
+          openVideoPlayer(videoId);
+        }
       });
     });
     
@@ -2943,7 +3257,16 @@
         e.stopPropagation();
         const videoCard = this.closest('.video-card');
         const videoId = videoCard.getAttribute('data-video-id');
-        openVideoPlayer(videoId);
+        const facebookVideo = videoCard.getAttribute('data-facebook-video');
+        const projectLink = videoCard.getAttribute('data-project-link');
+        
+        if (facebookVideo) {
+          const title = videoCard.querySelector('.video-title').textContent;
+          const description = videoCard.querySelector('.video-description').textContent;
+          openFacebookVideo(facebookVideo, title, description, projectLink);
+        } else if (videoId) {
+          openVideoPlayer(videoId);
+        }
       });
     });
     
@@ -2984,6 +3307,19 @@
         videoCards.forEach(card => {
           if (filter === 'all') {
             card.style.display = 'block';
+          } else if (filter === 'youtube') {
+            const videoId = card.getAttribute('data-video-id');
+            if (videoId && !card.classList.contains('facebook-video')) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          } else if (filter === 'facebook') {
+            if (card.classList.contains('facebook-video')) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
           } else {
             const categories = card.getAttribute('data-category').split(' ');
             if (categories.includes(filter)) {
@@ -2998,7 +3334,12 @@
     
     // فتح قائمة تشغيل يوتيوب
     function openYouTubePlaylist() {
-      window.open('https://www.youtube.com/', '_blank');
+      window.open('https://youtube.com/@nocheluz-l8p', '_blank');
+    }
+    
+    // فتح صفحة فيسبوك
+    function openFacebookPage() {
+      window.open('https://www.facebook.com/share/1C3q5F9tDD/', '_blank');
     }
 
     // ==============================
