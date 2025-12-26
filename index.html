@@ -133,10 +133,6 @@
       align-items: center;
     }
 
-    .profile-container {
-      position: relative;
-    }
-
     /* تحديث تنسيق الصورة الشخصية */
     .profile-image {
       width: 120px;
@@ -145,41 +141,6 @@
       object-fit: cover;
       border: 4px solid var(--primary);
       box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-    }
-
-    .profile-image:hover {
-      transform: scale(1.05);
-      border-color: var(--secondary);
-    }
-
-    .profile-overlay {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .profile-container:hover .profile-overlay {
-      opacity: 1;
-    }
-
-    .profile-overlay button {
-      background: var(--gradient);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 12px;
     }
     
     header::before {
@@ -959,57 +920,6 @@
       flex: 1;
     }
 
-    /* نافذة رمز التحقق */
-    .verification-overlay {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .verification-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .verification-modal {
-      background: var(--card);
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-      border: 1px solid rgba(255,255,255,0.1);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-
-    .verification-overlay.active .verification-modal {
-      transform: translateY(0);
-    }
-    
-    .verification-title {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: var(--text);
-    }
-    
-    .verification-message {
-      color: var(--text-muted);
-      margin-bottom: 25px;
-      line-height: 1.6;
-    }
-
     /* نافذة تحميل */
     .loading-overlay {
       position: fixed;
@@ -1555,33 +1465,6 @@
     <i class="fas fa-moon"></i>
   </button>
 
-  <!-- نافذة رمز التحقق لتغيير الصورة -->
-  <div class="verification-overlay" id="verificationOverlay">
-    <div class="verification-modal">
-      <div class="notification-icon">
-        <i class="fas fa-lock"></i>
-      </div>
-      <h2 class="verification-title">تحقق من الهوية</h2>
-      <p class="verification-message">
-        لأسباب أمنية، يرجى إدخال رمز التحقق لتغيير الصورة الشخصية.
-        <br><br>
-      </p>
-      <div class="contact-form">
-        <div class="form-group">
-          <input type="text" id="verificationCode" placeholder="أدخل رمز التحقق هنا">
-        </div>
-        <div class="notification-buttons">
-          <button class="success" id="verifyButton">
-            <i class="fas fa-check"></i> تحقق
-          </button>
-          <button class="secondary" id="cancelVerificationButton">
-            <i class="fas fa-times"></i> إلغاء
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- نافذة التحميل -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner"></div>
@@ -1603,11 +1486,14 @@
       <div class="video-player-info">
         <p class="video-player-description" id="videoPlayerDescription"></p>
         <div class="video-player-actions">
-          <a href="#" class="video-player-link" id="videoPlayerYoutubeLink" target="_blank">
+          <a href="#" class="video-player-link" id="videoPlayerYoutubeLink" target="_blank" style="display: none;">
             <i class="fab fa-youtube"></i> مشاهدة على يوتيوب
           </a>
-          <a href="https://studio-vert-xi.vercel.app/" class="video-player-link" id="videoPlayerProjectLink" target="_blank" style="background: var(--primary); display: none;">
+          <a href="#" class="video-player-link" id="videoPlayerProjectLink" target="_blank" style="background: var(--primary); display: none;">
             <i class="fas fa-external-link-alt"></i> زيارة المشروع
+          </a>
+          <a href="#" class="video-player-link" id="videoPlayerFacebookLink" target="_blank" style="background: var(--facebook); display: none;">
+            <i class="fab fa-facebook"></i> مشاهدة على فيسبوك
           </a>
         </div>
       </div>
@@ -1627,18 +1513,9 @@
       
       <div class="header-content">
         <!-- الصورة الشخصية -->
-        <div class="profile-container">
-          <img src="https://via.placeholder.com/120/8B5FBF/FFFFFF?text=عبد+الوهاب" 
-               alt="صورة عبد الوهاب الريمي" 
-               class="profile-image"
-               id="profileImage">
-          <div class="profile-overlay">
-            <button id="changeImageButton">
-              <i class="fas fa-camera"></i> تغيير الصورة
-            </button>
-          </div>
-          <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-        </div>
+        <img src="https://www.ygcloud.com/knowledge/wp-content/uploads/2024/01/37693cfc748049e.png" 
+             alt="صورة عبد الوهاب الريمي" 
+             class="profile-image">
         
         <div>
           <h1>أفكار برمجية</h1>
@@ -2566,176 +2443,6 @@
     }
 
     // ==============================
-    // نظام مشاركة الصورة مع ImgBB
-    // ==============================
-    const verificationOverlay = document.getElementById('verificationOverlay');
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    const changeImageButton = document.getElementById('changeImageButton');
-    const verifyButton = document.getElementById('verifyButton');
-    const cancelVerificationButton = document.getElementById('cancelVerificationButton');
-    const verificationCodeInput = document.getElementById('verificationCode');
-    const imageUpload = document.getElementById('imageUpload');
-    const profileImage = document.getElementById('profileImage');
-    
-    // الرمز الصحيح لتغيير الصورة
-    const correctCode = '775247172Mu';
-    
-    // مفتاح API الخاص بـ ImgBB
-    const IMGBB_API_KEY = '7a1a41f88341d750038a312a1f002679';
-    
-    // رابط الصورة المخزن محلياً (مؤقت)
-    let currentImageUrl = localStorage.getItem('profileImageUrl') || 
-                         'https://via.placeholder.com/120/8B5FBF/FFFFFF?text=عبد+الوهاب';
-    
-    // ==============================
-    // دالة رفع الصورة إلى ImgBB
-    // ==============================
-    async function uploadToImgBB(file) {
-      try {
-        loadingOverlay.classList.add('active');
-        
-        const reader = new FileReader();
-        
-        return new Promise((resolve, reject) => {
-          reader.onload = async function(e) {
-            try {
-              const base64Image = e.target.result.split(',')[1];
-              
-              const formData = new FormData();
-              formData.append('image', base64Image);
-              
-              const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                method: 'POST',
-                body: formData
-              });
-              
-              const data = await response.json();
-              
-              if (data.success) {
-                resolve(data.data.url);
-              } else {
-                reject(new Error(data.error?.message || 'فشل رفع الصورة'));
-              }
-            } catch (error) {
-              reject(error);
-            } finally {
-              loadingOverlay.classList.remove('active');
-            }
-          };
-          
-          reader.onerror = () => {
-            loadingOverlay.classList.remove('active');
-            reject(new Error('خطأ في قراءة الملف'));
-          };
-          
-          reader.readAsDataURL(file);
-        });
-        
-      } catch (error) {
-        loadingOverlay.classList.remove('active');
-        throw error;
-      }
-    }
-    
-    // ==============================
-    // دالة تحميل الصورة الشخصية
-    // ==============================
-    async function loadProfileImage() {
-      try {
-        if (currentImageUrl && currentImageUrl !== 'https://via.placeholder.com/120/8B5FBF/FFFFFF?text=عبد+الوهاب') {
-          profileImage.src = currentImageUrl;
-        }
-        
-        console.log('الصورة الشخصية تم تحميلها بنجاح');
-        
-      } catch (error) {
-        console.error('خطأ في تحميل الصورة:', error);
-      }
-    }
-    
-    // ==============================
-    // دالة حفظ رابط الصورة للجميع
-    // ==============================
-    function saveProfileImageUrl(imageUrl) {
-      localStorage.setItem('profileImageUrl', imageUrl);
-      currentImageUrl = imageUrl;
-      console.log('تم حفظ رابط الصورة:', imageUrl);
-    }
-    
-    // ==============================
-    // دالة رفع الصورة ومعالجتها
-    // ==============================
-    async function uploadAndSaveProfileImage(file) {
-      try {
-        if (file.size > 5 * 1024 * 1024) {
-          alert('حجم الصورة كبير جداً! الحد الأقصى هو 5MB');
-          return false;
-        }
-        
-        if (!file.type.startsWith('image/')) {
-          alert('الرجاء اختيار ملف صورة فقط');
-          return false;
-        }
-        
-        const imageUrl = await uploadToImgBB(file);
-        
-        if (imageUrl) {
-          saveProfileImageUrl(imageUrl);
-          profileImage.src = imageUrl;
-          alert('✅ تم تحديث الصورة الشخصية بنجاح!');
-          return true;
-        }
-        
-        return false;
-        
-      } catch (error) {
-        console.error('خطأ في رفع الصورة:', error);
-        alert('❌ حدث خطأ أثناء رفع الصورة. يرجى المحاولة مرة أخرى.');
-        return false;
-      }
-    }
-    
-    // ==============================
-    // معالجات الأحداث للصورة الشخصية
-    // ==============================
-    changeImageButton.addEventListener('click', () => {
-      verificationOverlay.classList.add('active');
-      verificationCodeInput.value = '';
-      verificationCodeInput.focus();
-    });
-    
-    verifyButton.addEventListener('click', async () => {
-      const enteredCode = verificationCodeInput.value.trim();
-      
-      if (enteredCode === correctCode) {
-        verificationOverlay.classList.remove('active');
-        imageUpload.click();
-      } else {
-        alert('❌ رمز التحقق غير صحيح! يرجى المحاولة مرة أخرى.');
-        verificationCodeInput.value = '';
-        verificationCodeInput.focus();
-      }
-    });
-    
-    cancelVerificationButton.addEventListener('click', () => {
-      verificationOverlay.classList.remove('active');
-    });
-    
-    verificationOverlay.addEventListener('click', (e) => {
-      if (e.target === verificationOverlay) {
-        verificationOverlay.classList.remove('active');
-      }
-    });
-    
-    imageUpload.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      
-      await uploadAndSaveProfileImage(file);
-      imageUpload.value = '';
-    });
-
-    // ==============================
     // وظائف التنقل بين الصفحات
     // ==============================
     document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -3044,6 +2751,7 @@
     const videoPlayerDescription = document.getElementById('videoPlayerDescription');
     const videoPlayerYoutubeLink = document.getElementById('videoPlayerYoutubeLink');
     const videoPlayerProjectLink = document.getElementById('videoPlayerProjectLink');
+    const videoPlayerFacebookLink = document.getElementById('videoPlayerFacebookLink');
     
     // بيانات الفيديوهات
     const videosData = {
@@ -3051,31 +2759,71 @@
         title: 'تعلم كيف تنشئ حساب بريد إلكتروني إبداعي عبر Visme',
         description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة. فقط املأ بياناتك في النموذج أدناه، واختر كلمة مرور قوية، لتبدأ رحلتك معنا بكل أمان ومتعة.',
         youtubeUrl: 'https://youtu.be/YpiI3ZI5AUY?si=gM0Vi7GRRTATswDc',
-        projectLink: null
+        projectLink: null,
+        facebookLink: null
       },
       'WrT3YQJ4X9o': {
         title: 'التسجيل في الحساب الإبداعي',
         description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.',
         youtubeUrl: 'https://youtube.com/shorts/WrT3YQJ4X9o?si=SoqTFgPtoYO9Cupg',
-        projectLink: null
+        projectLink: null,
+        facebookLink: null
       },
       'qap0l8YCNV4': {
         title: 'تثبيت تطبيق نظام المحاسب الذكي - النسخة التجريبية',
         description: '💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري، يهدف إلى تقديم تجربة محاسبية ذكية وسهلة الاستخدام. بإذن الله سيكون الإصدار القادم تطبيقًا حقيقيًا وكامل المميزات قريبًا. يمكن تثبيت وتجربة التطبيق الآن.',
         youtubeUrl: 'https://youtube.com/shorts/qap0l8YCNV4?si=8tXUKNnoZkGWRAdo',
-        projectLink: 'https://studio-vert-xi.vercel.app/'
+        projectLink: 'https://studio-vert-xi.vercel.app/',
+        facebookLink: null
       },
       'A00AI3WFbYA': {
         title: 'إنشاء فاتورة في نظام المحاسب الذكي',
         description: '💼 نظام المحاسب الذكي المتكامل - تطبيق تجريبي ذكي لإدارة الحسابات. 🧾 أنشئ الفواتير واطبعها، احفظها في جهازك، وشاركها عبر واتساب بسهولة. 🚀 قريبًا الإصدار الكامل بمزايا متقدمة.',
         youtubeUrl: 'https://youtube.com/shorts/A00AI3WFbYA?si=d4zEz69y0iwKkkTA',
-        projectLink: 'https://studio-vert-xi.vercel.app/'
+        projectLink: 'https://studio-vert-xi.vercel.app/',
+        facebookLink: null
       },
       'V5Umbzrt6Gk': {
         title: 'نظام المحاسب الذكي المتكامل - النسخة التجريبية',
         description: '💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري، يهدف إلى تقديم تجربة محاسبية ذكية وسهلة الاستخدام. 📱 يمكنك الآن تثبيته وتجربته للتعرف على فكرته وأدواته الأساسية. بإذن الله سيكون الإصدار القادم تطبيقًا حقيقيًا وكامل المميزات قريبًا.',
         youtubeUrl: 'https://youtube.com/shorts/V5Umbzrt6Gk?si=ILkKFbBdGXFmJnRw',
-        projectLink: 'https://studio-vert-xi.vercel.app/'
+        projectLink: 'https://studio-vert-xi.vercel.app/',
+        facebookLink: null
+      },
+      'facebook-1': {
+        title: 'تأجير السيارات',
+        description: 'إذا كنت تبحث عن متجر إلكتروني حديث، متطور، وسريع يعمل على جميع الأجهزة ويعطي تجربة مستخدم راقية — فأنت في المكان الصحيح!',
+        youtubeUrl: null,
+        projectLink: null,
+        facebookLink: 'https://www.facebook.com/share/r/1Bd4G6d6kG/'
+      },
+      'facebook-2': {
+        title: 'انشاء صفحه ويب الأعمال',
+        description: 'شركة الريمي للمقاولات العامة تقدم خدمات متكاملة في مجال البناء والتشطيب تحت إشراف جمال الريمي.',
+        youtubeUrl: null,
+        projectLink: 'https://general-contracting-nine.vercel.app/',
+        facebookLink: 'https://www.facebook.com/share/r/1PHa76BhCQ/'
+      },
+      'facebook-3': {
+        title: 'انشاء حساب إبداعي',
+        description: 'أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.',
+        youtubeUrl: null,
+        projectLink: null,
+        facebookLink: 'https://www.facebook.com/share/r/1KPmA5eaKa/'
+      },
+      'facebook-4': {
+        title: 'انشاء حساب إبداعي',
+        description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة. فقط املأ بياناتك في النموذج أدناه، واختر كلمة مرور قوية، لتبدأ رحلتك معنا بكل أمان ومتعة.',
+        youtubeUrl: null,
+        projectLink: null,
+        facebookLink: 'https://www.facebook.com/share/r/1GF5V8EHyQ/'
+      },
+      'facebook-5': {
+        title: 'لعبه الثعبان بالذكاء الاصطناعي',
+        description: 'لعبة الثعبان بالذكاء الاصطناعي ليست أول مشروع لي في هذا المجال، لكنها البداية في رحلتي مع الذكاء الاصطناعي، وبإذن الله القادم سيكون أفضل وأقوى." 🤖💪',
+        youtubeUrl: null,
+        projectLink: 'https://y-lan-oyunu.vercel.app/',
+        facebookLink: 'https://www.facebook.com/share/r/17QZsvDFp1/'
       }
     };
     
@@ -3087,7 +2835,14 @@
       // تحديث معلومات الفيديو
       videoPlayerTitle.textContent = videoData.title;
       videoPlayerDescription.textContent = videoData.description;
-      videoPlayerYoutubeLink.href = videoData.youtubeUrl;
+      
+      // إظهار أو إخفاء روابط يوتيوب
+      if (videoData.youtubeUrl) {
+        videoPlayerYoutubeLink.href = videoData.youtubeUrl;
+        videoPlayerYoutubeLink.style.display = 'inline-flex';
+      } else {
+        videoPlayerYoutubeLink.style.display = 'none';
+      }
       
       // إظهار رابط المشروع إذا كان موجوداً
       if (videoData.projectLink) {
@@ -3097,24 +2852,33 @@
         videoPlayerProjectLink.style.display = 'none';
       }
       
-      // تحميل الفيديو من يوتيوب
-      videoPlayerIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+      // إظهار رابط فيسبوك إذا كان موجوداً
+      if (videoData.facebookLink) {
+        videoPlayerFacebookLink.href = videoData.facebookLink;
+        videoPlayerFacebookLink.style.display = 'inline-flex';
+      } else {
+        videoPlayerFacebookLink.style.display = 'none';
+      }
+      
+      // تحميل الفيديو من يوتيوب فقط إذا كان فيديو يوتيوب
+      if (videoId.startsWith('facebook')) {
+        videoPlayerIframe.style.display = 'none';
+        videoPlayerIframe.src = '';
+      } else {
+        videoPlayerIframe.style.display = 'block';
+        videoPlayerIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+      }
       
       // إظهار مشغل الفيديو
       videoPlayerOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden'; // منع التمرير في الخلفية
+      document.body.style.overflow = 'hidden';
     }
     
     // إغلاق مشغل الفيديو
     function closeVideoPlayerFunc() {
       videoPlayerOverlay.classList.remove('active');
-      videoPlayerIframe.src = ''; // إيقاف الفيديو
-      document.body.style.overflow = 'auto'; // إعادة التمرير
-    }
-    
-    // فتح فيديو فيسبوك في نافذة جديدة
-    function openFacebookVideo(facebookLink) {
-      window.open(facebookLink, '_blank');
+      videoPlayerIframe.src = '';
+      document.body.style.overflow = 'auto';
     }
     
     // إضافة أحداث النقر على بطاقات الفيديو
@@ -3124,25 +2888,13 @@
         if (e.target.closest('.video-play-btn')) {
           e.stopPropagation();
           const videoId = card.getAttribute('data-video-id');
-          const facebookLink = card.getAttribute('data-facebook-link');
-          
-          if (facebookLink) {
-            openFacebookVideo(facebookLink);
-          } else {
-            openVideoPlayer(videoId);
-          }
+          openVideoPlayer(videoId);
           return;
         }
         
         // فتح الفيديو عند النقر على البطاقة
         const videoId = card.getAttribute('data-video-id');
-        const facebookLink = card.getAttribute('data-facebook-link');
-        
-        if (facebookLink) {
-          openFacebookVideo(facebookLink);
-        } else {
-          openVideoPlayer(videoId);
-        }
+        openVideoPlayer(videoId);
       });
     });
     
@@ -3152,13 +2904,7 @@
         e.stopPropagation();
         const videoCard = this.closest('.video-card');
         const videoId = videoCard.getAttribute('data-video-id');
-        const facebookLink = videoCard.getAttribute('data-facebook-link');
-        
-        if (facebookLink) {
-          openFacebookVideo(facebookLink);
-        } else {
-          openVideoPlayer(videoId);
-        }
+        openVideoPlayer(videoId);
       });
     });
     
@@ -3200,8 +2946,8 @@
           if (filter === 'all') {
             card.style.display = 'block';
           } else if (filter === 'facebook') {
-            const facebookLink = card.getAttribute('data-facebook-link');
-            if (facebookLink) {
+            const videoId = card.getAttribute('data-video-id');
+            if (videoId.startsWith('facebook')) {
               card.style.display = 'block';
             } else {
               card.style.display = 'none';
@@ -3248,9 +2994,6 @@
         card.style.animationDelay = `${index * 0.05}s`;
         card.style.animation = 'fadeIn 0.5s ease forwards';
       });
-      
-      // تحميل الصورة الشخصية
-      loadProfileImage();
       
       // إضافة أزرار فيسبوك للتواصل
       const facebookButtons = document.querySelectorAll('.facebook');
