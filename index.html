@@ -1471,25 +1471,6 @@
       background: #0078B5;
     }
     
-    /* شارة حالة GitHub Actions */
-    .github-actions-badge {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 1000;
-      background: var(--card);
-      padding: 10px 15px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
-    }
-    
-    .github-actions-badge:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-    
     @media (max-width: 968px) {
       main {
         grid-template-columns: 1fr;
@@ -1528,13 +1509,6 @@
       .messaging-button {
         min-width: 100%;
       }
-      
-      .github-actions-badge {
-        left: 10px;
-        bottom: 10px;
-        padding: 8px 12px;
-        font-size: 12px;
-      }
     }
     
     @media (max-width: 768px) {
@@ -1560,15 +1534,6 @@
       
       .year-2026 {
         font-size: 32px;
-      }
-      
-      .github-actions-badge {
-        position: relative;
-        left: auto;
-        bottom: auto;
-        margin: 20px auto;
-        display: block;
-        width: fit-content;
       }
     }
     
@@ -1668,11 +1633,6 @@
       .year-2026 {
         font-size: 28px;
       }
-      
-      .github-actions-badge {
-        padding: 6px 10px;
-        font-size: 11px;
-      }
     }
   </style>
 </head>
@@ -1681,19 +1641,6 @@
   <button class="theme-toggle" id="themeToggle" title="التحويل إلى الوضع النهاري">
     <i class="fas fa-moon"></i>
   </button>
-
-  <!-- شارة حالة GitHub Actions -->
-  <a href="https://github.com/luznoche987-gif/portfolio/actions" target="_blank" class="github-actions-badge">
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <i class="fab fa-github" style="color: var(--primary);"></i>
-      <div style="display: flex; flex-direction: column;">
-        <span style="font-size: 12px; color: var(--text-muted);">آخر تحديث:</span>
-        <img src="https://github.com/luznoche987-gif/portfolio/actions/workflows/deploy.yml/badge.svg" 
-             alt="GitHub Actions Status"
-             style="height: 20px;">
-      </div>
-    </div>
-  </a>
 
   <!-- شعار التهاني - يظهر في كل زيارة بدون عداد -->
   <div class="welcome-overlay" id="welcomeOverlay">
@@ -1772,14 +1719,6 @@
           <h1>أفكار برمجية</h1>
           <h4>تحت أشرف/عبد الوهاب عبد الواحد الريمي</h4>
           <p class="lead">مطور واجهات أمامية، مصمم تجربة مستخدم، ومطور تطبيقات بايثون</p>
-          <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
-            <span style="background: rgba(0,212,170,0.2); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 12px;">
-              <i class="fab fa-github"></i> GitHub Actions
-            </span>
-            <span style="background: rgba(139,95,191,0.2); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 12px;">
-              <i class="fas fa-cloud"></i> Auto Deploy
-            </span>
-          </div>
         </div>
       </div>
     </header>
@@ -1797,10 +1736,6 @@
         <div class="nav-tab" data-page="videos">
           <i class="fas fa-video"></i>
           <span>فيديوهات المشاريع</span>
-        </div>
-        <div class="nav-tab" data-page="ci-cd">
-          <i class="fas fa-rocket"></i>
-          <span>النشر الآلي</span>
         </div>
         <div class="nav-tab" data-page="ideas">
           <i class="fas fa-lightbulb"></i>
@@ -1829,7 +1764,6 @@
             <div class="tile">تصميم واجهات ويب تفاعلية<br><span class="muted">UI/UX Design</span></div>
             <div class="tile">تطبيقات ويب متقدمة<br><span class="muted">Frontend Development</span></div>
             <div class="tile">تطبيقات بايثون<br><span class="muted">Python Applications</span></div>
-            <div class="tile">النشر الآلي<br><span class="muted">GitHub Actions</span></div>
           </div>
 
           <!-- قسم جديد: المهارات التقنية المصغرة -->
@@ -1928,16 +1862,6 @@
                 <div class="skill-category">Tools</div>
               </div>
               
-              <!-- GitHub Actions -->
-              <div class="skill-card" data-skill="github-actions">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" 
-                     alt="GitHub Actions" 
-                     class="skill-image"
-                     onerror="this.src='https://via.placeholder.com/60/181717/FFFFFF?text=GA'">
-                <div class="skill-name">GitHub Actions</div>
-                <div class="skill-category">DevOps</div>
-              </div>
-              
               <!-- HTML5 -->
               <div class="skill-card" data-skill="html">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" 
@@ -1977,7 +1901,7 @@
                 <li>Python, Django, Flask - تطوير تطبيقات ويب وحلول برمجية متقدمة</li>
                 <li>التصميم المتجاوب وتجربة المستخدم - تصميم يتكيف مع جميع الأجهزة</li>
                 <li>أدوات التصميم (Figma, Adobe XD) - تصميم واجهات مستخدم احترافية</li>
-                <li>Git وGitHub Actions - إدارة الإصدارات والنشر الآلي</li>
+                <li>Git وإدارة المشاريع - تنظيم العمل والتعاون في الفرق</li>
               </ul>
             </div>
           </div>
@@ -1990,11 +1914,9 @@
               <li>برامج أتمتة المهام والتكرار</li>
               <li>تحليل البيانات وعرضها</li>
               <li>تطبيقات الذكاء الاصطناعي والتعلم الآلي</li>
-              <li>أنظمة النشر الآلي باستخدام GitHub Actions</li>
             </ul>
             <div style="margin-top: 15px;">
               <span class="python-badge">Python Developer</span>
-              <span class="python-badge" style="background: var(--gradient); margin-left: 10px;">CI/CD Expert</span>
             </div>
           </div>
         </div>
@@ -2706,191 +2628,6 @@
         </div>
       </section>
 
-      <!-- صفحة النشر الآلي (CI/CD) -->
-      <section id="ci-cd" class="page">
-        <div class="card">
-          <h2><i class="fas fa-rocket"></i> نظام النشر الآلي</h2>
-          <p class="muted">أستخدم GitHub Actions لبناء ونشر الموقع تلقائياً مع كل تحديث. نظام متكامل لضمان جودة وكفاءة النشر.</p>
-          
-          <div class="services-grid">
-            <!-- GitHub Actions -->
-            <div class="service-card" onclick="window.open('https://github.com/luznoche987-gif/portfolio/actions', '_blank')">
-              <div class="service-icon">
-                <i class="fab fa-github"></i>
-              </div>
-              <h3>GitHub Actions</h3>
-              <p class="muted">أداة النشر الآلي المتكاملة مع GitHub</p>
-              <div style="margin-top: 10px;">
-                <img src="https://github.com/luznoche987-gif/portfolio/actions/workflows/deploy.yml/badge.svg" 
-                     alt="GitHub Actions Status"
-                     id="actionsStatusBadge">
-              </div>
-              <div id="actionsStatus" style="margin-top: 10px; color: var(--accent); font-size: 12px;">
-                <i class="fas fa-sync-alt fa-spin"></i> جاري تحديث الحالة...
-              </div>
-            </div>
-            
-            <!-- GitHub Pages -->
-            <div class="service-card" onclick="window.open('https://luznoche987-gif.github.io/portfolio', '_blank')">
-              <div class="service-icon">
-                <i class="fas fa-cloud-upload-alt"></i>
-              </div>
-              <h3>GitHub Pages</h3>
-              <p class="muted">خدمة استضافة مجانية من GitHub</p>
-              <div style="margin-top: 10px; color: var(--accent);">
-                <i class="fas fa-check-circle"></i> نشط
-              </div>
-              <div style="margin-top: 5px; font-size: 12px; color: var(--text-muted);">
-                نشر تلقائي مع كل commit
-              </div>
-            </div>
-            
-            <!-- التحقق المستمر -->
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-shield-alt"></i>
-              </div>
-              <h3>التحقق المستمر</h3>
-              <p class="muted">فحص تلقائي للكود مع كل تغيير</p>
-              <div style="margin-top: 10px; color: var(--success);">
-                <i class="fas fa-bolt"></i> نشط
-              </div>
-              <div style="margin-top: 5px; font-size: 12px; color: var(--text-muted);">
-                فحص HTML/CSS/JS تلقائياً
-              </div>
-            </div>
-            
-            <!-- SLSA Provenance -->
-            <div class="service-card" onclick="window.open('https://github.com/luznoche987-gif/portfolio/actions/workflows/slsa-provenance.yml', '_blank')">
-              <div class="service-icon">
-                <i class="fas fa-certificate"></i>
-              </div>
-              <h3>إثبات الأصالة</h3>
-              <p class="muted">SLSA Provenance للتأكد من أمان السلسلة</p>
-              <div style="margin-top: 10px; color: var(--primary);">
-                <i class="fas fa-lock"></i> مفعل
-              </div>
-              <div style="margin-top: 5px; font-size: 12px; color: var(--text-muted);">
-                تتبع أصل الملفات وإثبات الأمان
-              </div>
-            </div>
-          </div>
-          
-          <h3 style="margin-top: 30px;">كيف يعمل نظام النشر؟</h3>
-          
-          <div style="margin: 20px 0; display: flex; flex-direction: column; gap: 15px;">
-            <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-              <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
-              <div>
-                <h4 style="margin: 0 0 8px 0;">تحديث الكود</h4>
-                <p class="muted" style="margin: 0;">عندما أرفع تحديثات جديدة إلى GitHub.</p>
-              </div>
-            </div>
-            
-            <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-              <div style="background: var(--accent); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
-              <div>
-                <h4 style="margin: 0 0 8px 0;">البناء التلقائي</h4>
-                <p class="muted" style="margin: 0;">GitHub Actions يبدأ عملية البناء تلقائياً.</p>
-              </div>
-            </div>
-            
-            <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-              <div style="background: var(--secondary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
-              <div>
-                <h4 style="margin: 0 0 8px 0;">النشر الآلي</h4>
-                <p class="muted" style="margin: 0;">يتم نشر الموقع على GitHub Pages تلقائياً.</p>
-              </div>
-            </div>
-            
-            <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-              <div style="background: var(--success); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
-              <div>
-                <h4 style="margin: 0 0 8px 0;">التأكيد والتحقق</h4>
-                <p class="muted" style="margin: 0;">إرسال إشعار بنجاح النشر والتحقق من العملية.</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- ملفات GitHub Actions -->
-          <h3 style="margin-top: 30px;">ملفات التكوين</h3>
-          <div class="ideas-grid" style="margin-top: 20px;">
-            <div class="idea-card" onclick="window.open('https://github.com/luznoche987-gif/portfolio/blob/main/.github/workflows/deploy.yml', '_blank')">
-              <div class="idea-header">
-                <h3>ملف النشر الآلي</h3>
-                <span class="idea-status completed">مفعل</span>
-              </div>
-              <p class="muted">deploy.yml - يقوم ببناء ونشر الموقع تلقائياً على GitHub Pages.</p>
-              <div class="idea-tags">
-                <span class="idea-tag">YAML</span>
-                <span class="idea-tag">CI/CD</span>
-                <span class="idea-tag">GitHub</span>
-              </div>
-            </div>
-            
-            <div class="idea-card" onclick="window.open('https://github.com/luznoche987-gif/portfolio/blob/main/.github/workflows/slsa-provenance.yml', '_blank')">
-              <div class="idea-header">
-                <h3>ملف إثبات الأصالة</h3>
-                <span class="idea-status completed">مفعل</span>
-              </div>
-              <p class="muted">slsa-provenance.yml - ينشئ ملفات إثبات الأصالة للإصدارات.</p>
-              <div class="idea-tags">
-                <span class="idea-tag">SLSA</span>
-                <span class="idea-tag">Security</span>
-                <span class="idea-tag">Provenance</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- روابط مباشرة -->
-          <div style="margin-top: 30px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-            <a href="https://github.com/luznoche987-gif/portfolio/blob/main/.github/workflows/deploy.yml" 
-               class="video-project-link" 
-               target="_blank"
-               style="background: var(--gradient); color: white; padding: 12px 25px;">
-              <i class="fab fa-github"></i> عرض ملف GitHub Actions
-            </a>
-            
-            <a href="https://github.com/luznoche987-gif/portfolio/actions" 
-               class="video-project-link" 
-               target="_blank"
-               style="background: var(--dark); color: white; padding: 12px 25px;">
-              <i class="fas fa-play-circle"></i> مشاهدة عمليات البناء
-            </a>
-            
-            <a href="https://luznoche987-gif.github.io/portfolio" 
-               class="video-project-link" 
-               target="_blank"
-               style="background: var(--accent); color: white; padding: 12px 25px;">
-              <i class="fas fa-external-link-alt"></i> زيارة الموقع المنشور
-            </a>
-          </div>
-          
-          <!-- إحصائيات -->
-          <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-            <h4><i class="fas fa-chart-line"></i> إحصائيات النشر</h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 15px;">
-              <div style="text-align: center;">
-                <div style="font-size: 24px; color: var(--accent); font-weight: bold;" id="buildCount">0</div>
-                <div style="font-size: 12px; color: var(--text-muted);">عدد عمليات البناء</div>
-              </div>
-              <div style="text-align: center;">
-                <div style="font-size: 24px; color: var(--success); font-weight: bold;" id="successRate">100%</div>
-                <div style="font-size: 12px; color: var(--text-muted);">معدل النجاح</div>
-              </div>
-              <div style="text-align: center;">
-                <div style="font-size: 24px; color: var(--primary); font-weight: bold;" id="lastDeploy">اليوم</div>
-                <div style="font-size: 12px; color: var(--text-muted);">آخر نشر</div>
-              </div>
-              <div style="text-align: center;">
-                <div style="font-size: 24px; color: var(--secondary); font-weight: bold;" id="uptime">100%</div>
-                <div style="font-size: 12px; color: var(--text-muted);">معدل التشغيل</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- صفحة الأفكار البرمجية -->
       <section id="ideas" class="page">
         <div class="card">
@@ -3051,14 +2788,6 @@
               <h3>التطوير المستمر</h3>
               <p class="muted">العالم الرقمي يتغير بسرعة، والتعلم المستمر هو سر البقاء في الصدارة.</p>
             </div>
-            
-            <div class="mindset-card">
-              <div class="mindset-icon">
-                <i class="fas fa-cogs"></i>
-              </div>
-              <h3>الأتمتة والكفاءة</h3>
-              <p class="muted">أؤمن بأتمتة المهام المتكررة لتوفير الوقت والتركيز على الإبداع والابتكار.</p>
-            </div>
           </div>
 
           <h3 style="margin-top: 30px;">تطوير التطبيقات: من الفكرة إلى الواقع</h3>
@@ -3092,8 +2821,8 @@
             <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
               <div style="background: var(--success); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
               <div>
-                <h4 style="margin: 0 0 8px 0;">النشر والتوثيق</h4>
-                <p class="muted" style="margin: 0;">استخدام أنظمة النشر الآلي والتحقق من الأمان وإثبات الأصالة.</p>
+                <h4 style="margin: 0 0 8px 0;">الاختبار والتطوير</h4>
+                <p class="muted" style="margin: 0;">ضمان جودة التطبيق وتحسينه بناءً على ملاحظات المستخدمين.</p>
               </div>
             </div>
           </div>
@@ -3141,8 +2870,6 @@
           <ul style="list-style:none;padding:0;margin:16px 0 0 0">
             <li style="margin-bottom:12px;"><strong>الاسم:</strong> عبد الوهاب عبد الواحد الريمي</li>
             <li style="margin-bottom:12px;"><strong>البريد:</strong> <a href="mailto:luznoche987@gmail.com" style="color: var(--accent); text-decoration: none;">luznoche987@gmail.com</a></li>
-            <li style="margin-bottom:12px;"><strong>المستودع:</strong> <a href="https://github.com/luznoche987-gif/portfolio" style="color: var(--primary); text-decoration: none;">github.com/luznoche987-gif</a></li>
-            <li style="margin-bottom:12px;"><strong>آخر تحديث:</strong> <span id="lastUpdateTime">اليوم</span></li>
           </ul>
           
           <!-- أزرار التواصل عبر الرسائل -->
@@ -3172,32 +2899,12 @@
               <i class="fab fa-facebook"></i>
             </a>
           </div>
-          
-          <!-- حالة GitHub Actions -->
-          <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-              <i class="fab fa-github" style="color: var(--primary);"></i>
-              <h4 style="margin: 0;">حالة النشر</h4>
-            </div>
-            <div id="sidebarActionsStatus" style="color: var(--accent); font-size: 12px;">
-              <i class="fas fa-sync-alt fa-spin"></i> جاري التحقق...
-            </div>
-            <a href="https://github.com/luznoche987-gif/portfolio/actions" 
-               style="display: block; text-align: center; margin-top: 10px; font-size: 12px; color: var(--text-muted); text-decoration: none;">
-               عرض التفاصيل <i class="fas fa-external-link-alt"></i>
-            </a>
-          </div>
         </div>
       </aside>
     </main>
 
     <footer>
       <p>صمم بتقنية الويب الحديثة — عبد الوهاب عبد الواحد الريمي © 2026</p>
-      <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">
-        <i class="fab fa-github"></i> تم النشر تلقائياً عبر GitHub Actions
-        <span style="margin: 0 10px;">|</span>
-        <span id="pageVersion">الإصدار: 1.0.0</span>
-      </p>
       <div class="social-links">
         <a href="https://github.com/luznoche987-gif" class="social-link" aria-label="GitHub" target="_blank">
           <i class="fab fa-github"></i>
@@ -3304,12 +3011,6 @@
     document.addEventListener('DOMContentLoaded', function() {
       // عرض الترحيب دائماً
       showWelcomePopup();
-      
-      // تحديث وقت آخر تحديث
-      document.getElementById('lastUpdateTime').textContent = new Date().toLocaleDateString('ar-SA');
-      
-      // تعيين نسخة الصفحة
-      document.getElementById('pageVersion').textContent = `الإصدار: ${new Date().toISOString().split('T')[0]}`;
     });
 
     // إغلاق شعار الترحيب عند النقر على الزر
@@ -3474,7 +3175,6 @@
         'figma': 'أداة تصميم واجهات المستخدم قائمة على المتصفح، مثالية للعمل التعاوني.',
         'xd': 'أداة تصميم وتجربة المستخدم من Adobe لتصميم واجهات ويب وتطبيقات جوال.',
         'git': 'نظام تحكم في الإصدارات لتتبع التغييرات في الكود والعمل التعاوني.',
-        'github-actions': 'أداة أتمتة سير العمل لبناء واختبار ونشر التطبيقات مباشرة من GitHub.',
         'html': 'لغة ترميز تستخدم في إنشاء هياكل صفحات الويب.',
         'css': 'لغة تنسيق تستخدم في تصميم مظهر صفحات الويب.',
         'js': 'لغة برمجة تجعل صفحات الويب تفاعلية وديناميكية.'
@@ -3590,7 +3290,7 @@
       },
       'facebook-1': {
         title: 'تأجير السيارات',
-        description: 'إذا كنت تبحث عن متجر إلكتروني حديث، متطور، وسريع يعمل على جميع الأجهزة ويعطي تجربة مستخدم راقية — فأنت في المكان الصحيح!',
+        description: 'إذا كنت تبحث عن متجر إلكتروني حديث، متطور، وسريع.',
         youtubeUrl: null,
         projectLink: null,
         facebookLink: 'https://www.facebook.com/share/r/1Bd4G6d6kG/'
@@ -3799,164 +3499,6 @@
       ideaCategorySelect.value = '';
       ideaDescriptionTextarea.value = '';
     });
-    
-    // ==============================
-    // تحديث حالة GitHub Actions
-    // ==============================
-    async function updateGitHubActionsStatus() {
-      try {
-        const repoOwner = 'luznoche987-gif';
-        const repoName = 'portfolio';
-        const workflowFile = 'deploy.yml';
-        
-        // تحديث شارة الحالة
-        const badgeUrl = `https://github.com/${repoOwner}/${repoName}/actions/workflows/${workflowFile}/badge.svg?${Date.now()}`;
-        const badgeImg = document.getElementById('actionsStatusBadge');
-        if (badgeImg) {
-          badgeImg.src = badgeUrl;
-        }
-        
-        // محاولة الحصول على بيانات GitHub API (للمستخدمين المخولين)
-        const githubApiToken = ''; // يمكن إضافة token هنا للوصول إلى API
-        const headers = githubApiToken ? {
-          'Authorization': `token ${githubApiToken}`,
-          'Accept': 'application/vnd.github.v3+json'
-        } : {};
-        
-        // الحصول على آخر عملية بناء
-        const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/${workflowFile}/runs?per_page=1`, {
-          headers: headers
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          
-          if (data.workflow_runs && data.workflow_runs.length > 0) {
-            const latestRun = data.workflow_runs[0];
-            const status = latestRun.status;
-            const conclusion = latestRun.conclusion;
-            const updatedAt = new Date(latestRun.updated_at);
-            
-            // تحديث حالة العملية
-            const statusElement = document.getElementById('actionsStatus');
-            const sidebarStatusElement = document.getElementById('sidebarActionsStatus');
-            
-            let statusText = '';
-            let statusColor = '';
-            let statusIcon = '';
-            
-            if (status === 'completed') {
-              if (conclusion === 'success') {
-                statusText = '✅ البناء الناجح';
-                statusColor = 'var(--success)';
-                statusIcon = 'fa-check-circle';
-              } else if (conclusion === 'failure') {
-                statusText = '❌ فشل البناء';
-                statusColor = 'var(--danger)';
-                statusIcon = 'fa-times-circle';
-              } else if (conclusion === 'cancelled') {
-                statusText = '⏹️ تم الإلغاء';
-                statusColor = 'var(--warning)';
-                statusIcon = 'fa-ban';
-              } else {
-                statusText = `⚠️ ${conclusion}`;
-                statusColor = 'var(--warning)';
-                statusIcon = 'fa-exclamation-triangle';
-              }
-            } else if (status === 'in_progress') {
-              statusText = '⚡ جاري البناء...';
-              statusColor = 'var(--accent)';
-              statusIcon = 'fa-sync-alt fa-spin';
-            } else if (status === 'queued') {
-              statusText = '⏳ في قائمة الانتظار';
-              statusColor = 'var(--text-muted)';
-              statusIcon = 'fa-clock';
-            } else {
-              statusText = `🔄 ${status}`;
-              statusColor = 'var(--text-muted)';
-              statusIcon = 'fa-question-circle';
-            }
-            
-            if (statusElement) {
-              statusElement.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 8px; color: ${statusColor}">
-                  <i class="fas ${statusIcon}"></i>
-                  <span>${statusText}</span>
-                </div>
-                <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">
-                  ${updatedAt.toLocaleDateString('ar-SA')} ${updatedAt.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}
-                </div>
-              `;
-            }
-            
-            if (sidebarStatusElement) {
-              sidebarStatusElement.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 8px; color: ${statusColor}">
-                  <i class="fas ${statusIcon}"></i>
-                  <span>${statusText}</span>
-                </div>
-              `;
-            }
-            
-            // تحديث الإحصائيات
-            updateStatistics(data);
-            
-            console.log(`GitHub Actions Status: ${status}, Conclusion: ${conclusion}`);
-          }
-        } else {
-          // إذا فشل الـ API، نعرض حالة افتراضية
-          setDefaultStatus();
-        }
-      } catch (error) {
-        console.error('Error fetching GitHub Actions status:', error);
-        setDefaultStatus();
-      }
-    }
-    
-    function setDefaultStatus() {
-      const statusElement = document.getElementById('actionsStatus');
-      const sidebarStatusElement = document.getElementById('sidebarActionsStatus');
-      
-      if (statusElement) {
-        statusElement.innerHTML = `
-          <div style="color: var(--accent);">
-            <i class="fas fa-check-circle"></i> النشر يعمل بشكل طبيعي
-          </div>
-          <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">
-            آخر تحديث: ${new Date().toLocaleDateString('ar-SA')}
-          </div>
-        `;
-      }
-      
-      if (sidebarStatusElement) {
-        sidebarStatusElement.innerHTML = `
-          <div style="color: var(--accent);">
-            <i class="fas fa-check-circle"></i> نشط
-          </div>
-        `;
-      }
-    }
-    
-    function updateStatistics(data) {
-      // هذه قيم افتراضية، في الواقع يجب حسابها من البيانات
-      const buildCount = data.total_count || Math.floor(Math.random() * 50) + 20;
-      const successRate = '95%';
-      const lastDeploy = 'قبل ساعة';
-      const uptime = '99.9%';
-      
-      document.getElementById('buildCount').textContent = buildCount;
-      document.getElementById('successRate').textContent = successRate;
-      document.getElementById('lastDeploy').textContent = lastDeploy;
-      document.getElementById('uptime').textContent = uptime;
-    }
-    
-    // تحديث الحالة كل دقيقة
-    if (window.location.hostname !== 'localhost') {
-      updateGitHubActionsStatus();
-      setInterval(updateGitHubActionsStatus, 60000); // دقيقة واحدة
-    } else {
-      setDefaultStatus();
-    }
     
     // ==============================
     // تهيئة الصور عند تحميل الصفحة
