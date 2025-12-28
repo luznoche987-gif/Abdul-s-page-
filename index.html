@@ -266,7 +266,7 @@
     
     main {
       display: grid;
-      grid-template-columns: 1fr 400px;
+      grid-template-columns: 1fr;
       gap: 30px;
       margin-bottom: 40px;
     }
@@ -919,42 +919,6 @@
     .form-row .form-group {
       flex: 1;
     }
-
-    /* نافذة تحميل */
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2001;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .loading-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255,255,255,0.1);
-      border-radius: 50%;
-      border-top-color: var(--accent);
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
     
     /* تنسيق جديد لقسم المهارات التقنية المصغرة */
     .skills-grid {
@@ -1334,6 +1298,179 @@
       transform: translateY(-2px);
     }
     
+    /* شعار التهاني - يظهر في كل زيارة بدون عداد */
+    .welcome-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+    
+    .welcome-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .welcome-container {
+      background: var(--card);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      transform: scale(0.8);
+      transition: transform 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid var(--accent);
+    }
+    
+    .welcome-overlay.active .welcome-container {
+      transform: scale(1);
+    }
+    
+    .welcome-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 30%, rgba(0, 212, 170, 0.1) 50%, transparent 70%);
+      transform: translateX(-100%);
+      animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .welcome-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+      color: var(--accent);
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .welcome-title {
+      font-size: 28px;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .welcome-message {
+      font-size: 18px;
+      margin-bottom: 25px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .year-2026 {
+      font-size: 40px;
+      font-weight: bold;
+      color: var(--secondary);
+      margin: 15px 0;
+      text-shadow: 0 0 20px rgba(255, 107, 139, 0.5);
+      animation: glow 2s infinite alternate;
+    }
+    
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px rgba(255, 107, 139, 0.5); }
+      100% { text-shadow: 0 0 30px rgba(255, 107, 139, 0.8), 0 0 40px rgba(255, 107, 139, 0.6); }
+    }
+    
+    .welcome-close {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    
+    .welcome-close:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(139, 95, 191, 0.4);
+    }
+    
+    /* مؤشر التذكير */
+    .welcome-reminder {
+      font-size: 14px;
+      color: var(--accent);
+      margin-top: 15px;
+      padding: 8px 15px;
+      background: rgba(0, 212, 170, 0.1);
+      border-radius: 10px;
+      display: inline-block;
+    }
+    
+    /* أزرار التواصل المحدثة */
+    .messaging-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .messaging-button {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      font-weight: 600;
+    }
+    
+    .messaging-button.whatsapp {
+      background: var(--whatsapp);
+    }
+    
+    .messaging-button.telegram {
+      background: var(--telegram);
+    }
+    
+    .messaging-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    
+    .messaging-button.whatsapp:hover {
+      background: #128C7E;
+    }
+    
+    .messaging-button.telegram:hover {
+      background: #0078B5;
+    }
+    
     @media (max-width: 968px) {
       main {
         grid-template-columns: 1fr;
@@ -1364,6 +1501,14 @@
       .video-player-iframe {
         height: 400px;
       }
+      
+      .messaging-buttons {
+        flex-direction: column;
+      }
+      
+      .messaging-button {
+        min-width: 100%;
+      }
     }
     
     @media (max-width: 768px) {
@@ -1373,6 +1518,22 @@
       
       .video-player-container {
         width: 95%;
+      }
+      
+      .welcome-container {
+        padding: 30px 20px;
+      }
+      
+      .welcome-title {
+        font-size: 24px;
+      }
+      
+      .welcome-message {
+        font-size: 16px;
+      }
+      
+      .year-2026 {
+        font-size: 32px;
       }
     }
     
@@ -1456,6 +1617,22 @@
       .video-player-description {
         font-size: 14px;
       }
+      
+      .welcome-container {
+        padding: 20px 15px;
+      }
+      
+      .welcome-title {
+        font-size: 22px;
+      }
+      
+      .welcome-message {
+        font-size: 15px;
+      }
+      
+      .year-2026 {
+        font-size: 28px;
+      }
     }
   </style>
 </head>
@@ -1465,9 +1642,30 @@
     <i class="fas fa-moon"></i>
   </button>
 
-  <!-- نافذة التحميل -->
-  <div class="loading-overlay" id="loadingOverlay">
-    <div class="loading-spinner"></div>
+  <!-- شعار التهاني - يظهر في كل زيارة بدون عداد -->
+  <div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-container">
+      <div class="welcome-icon">
+        <i class="fas fa-glass-cheers"></i>
+      </div>
+      <h2 class="welcome-title">مرحباً بك في موقعي الشخصي</h2>
+      <p class="welcome-message">
+        أهلاً وسهلاً بك عزيزي الزائر<br>
+        أتمنى لك تجربة ممتعة في استكشاف مشاريعي وأعمالي البرمجية
+      </p>
+      <div class="year-2026">🎉 2026 🎉</div>
+      <p class="welcome-message">
+        كل عام وأنت بخير<br>
+        أتمنى لك سنة جديدة مليئة بالإنجازات والتقدم<br>
+        سنة 2026 سنة إبداع وتميز برمجي
+      </p>
+      <div class="welcome-reminder">
+        أهلاً وسهلاً بك!
+      </div>
+      <button class="welcome-close" id="welcomeClose">
+        <i class="fas fa-check-circle"></i> بدء الاستكشاف
+      </button>
+    </div>
   </div>
 
   <!-- مشغل الفيديو المدمج -->
@@ -1888,7 +2086,7 @@
                     <span class="project-tag">WebGL</span>
                     <span class="project-tag">3D Animation</span>
                   </div>
-                  <a href="https://cosmic-particles-visualization.vercel.app/" class="video-project-link" target="_blank" style="margin-top: 15px; display: inline-block;">
+                  <a href="" class="video-project-link" target="_blank" style="margin-top: 15px; display: inline-block;">
                     <i class="fas fa-external-link-alt"></i> زيارة المشروع
                   </a>
                 </div>
@@ -2221,8 +2419,190 @@
               </div>
             </div>
             
-            <!-- الفيديوهات الأخرى تبقى كما هي ... -->
+            <!-- فيديو 4 -->
+            <div class="video-card" data-category="accounting" data-video-id="A00AI3WFbYA" data-project-link="https://studio-vert-xi.vercel.app/">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="إنشاء فاتورة في نظام المحاسب الذكي" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:15</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">إنشاء فاتورة في نظام المحاسب الذكي</h3>
+                <p class="video-description">💼 نظام المحاسب الذكي المتكامل - تطبيق تجريبي ذكي لإدارة الحسابات. 🧾 أنشئ الفواتير واطبعها، احفظها في جهازك، وشاركها عبر واتساب بسهولة. 🚀 قريبًا الإصدار الكامل بمزايا متقدمة.</p>
+                <div class="video-meta">
+                  <span class="youtube-badge">
+                    <i class="fas fa-calculator"></i> محاسبة
+                  </span>
+                  <button class="video-play-btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                    <i class="fas fa-play"></i> تشغيل الفيديو
+                  </button>
+                </div>
+              </div>
+            </div>
             
+            <!-- فيديو 5 -->
+            <div class="video-card" data-category="accounting" data-video-id="V5Umbzrt6Gk" data-project-link="https://smart-accounting-system.vercel.app/">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="نظام المحاسب الذكي المتكامل - النسخة التجريبية" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:30</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">نظام المحاسب الذكي المتكامل - النسخة التجريبية</h3>
+                <p class="video-description">💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري، يهدف إلى تقديم تجربة محاسبية ذكية وسهلة الاستخدام. 📱 يمكنك الآن تثبيته وتجربته للتعرف على فكرته وأدواته الأساسية. بإذن الله سيكون الإصدار القادم تطبيقًا حقيقيًا وكامل المميزات قريبًا.</p>
+                <div class="video-meta">
+                  <span class="youtube-badge">
+                    <i class="fas fa-calculator"></i> محاسبة
+                  </span>
+                  <button class="video-play-btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                    <i class="fas fa-play"></i> تشغيل الفيديو
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو فيسبوك 1 -->
+            <div class="video-card" data-category="facebook" data-video-id="facebook-1">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="تأجير السيارات" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">تأجير السيارات</h3>
+                <p class="video-description">إذا كنت تبحث عن متجر إلكتروني حديث، متطور، وسريع يعمل على جميع الأجهزة ويعطي تجربة مستخدم راقية — فأنت في المكان الصحيح!</p>
+                <div class="video-meta">
+                  <span class="youtube-badge" style="background: var(--facebook);">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                    <i class="fas fa-play"></i> تشغيل الفيديو
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو فيسبوك 2 -->
+            <div class="video-card" data-category="facebook" data-video-id="facebook-2" data-project-link="https://general-contracting-nine.vercel.app/">
+              <div class="video-thumbnail">
+                <img src="https://alaselgroup.com/wp-content/uploads/2023/11/11-1-1536x1024.jpeg" 
+                     alt="انشاء صفحه ويب الأعمال" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">انشاء صفحه ويب الأعمال</h3>
+                <p class="video-description">شركة الريمي للمقاولات العامة تقدم خدمات متكاملة في مجال البناء والتشطيب تحت إشراف جمال الريمي.</p>
+                <div class="video-meta">
+                  <span class="youtube-badge" style="background: var(--facebook);">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <div>
+                    <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                      <i class="fas fa-play"></i> تشغيل الفيديو
+                    </button>
+                    <a href="https://general-contracting-nine.vercel.app/" class="video-project-link" target="_blank" style="margin-right: 10px;">
+                      <i class="fas fa-external-link-alt"></i> زيارة المشروع
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو فيسبوك 3 -->
+            <div class="video-card" data-category="facebook" data-video-id="facebook-3">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="انشاء حساب إبداعي" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">انشاء حساب إبداعي</h3>
+                <p class="video-description">أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.</p>
+                <div class="video-meta">
+                  <span class="youtube-badge" style="background: var(--facebook);">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                    <i class="fas fa-play"></i> تشغيل الفيديو
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو فيسبوك 4 -->
+            <div class="video-card" data-category="facebook" data-video-id="facebook-4">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="انشاء حساب إبداعي" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">انشاء حساب إبداعي</h3>
+                <p class="video-description">مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة. فقط املأ بياناتك في النموذج أدناه، واختر كلمة مرور قوية، لتبدأ رحلتك معنا بكل أمان ومتعة.</p>
+                <div class="video-meta">
+                  <span class="youtube-badge" style="background: var(--facebook);">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                    <i class="fas fa-play"></i> تشغيل الفيديو
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- فيديو فيسبوك 5 -->
+            <div class="video-card" data-category="facebook" data-video-id="facebook-5" data-project-link="https://y-lan-oyunu.vercel.app/">
+              <div class="video-thumbnail">
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                     alt="لعبه الثعبان بالذكاء الاصطناعي" 
+                     class="project-image-real">
+                <div class="video-play-button">
+                  <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">--:--</div>
+              </div>
+              <div class="video-content">
+                <h3 class="video-title">لعبه الثعبان بالذكاء الاصطناعي</h3>
+                <p class="video-description">لعبة الثعبان بالذكاء الاصطناعي ليست أول مشروع لي في هذا المجال، لكنها البداية في رحلتي مع الذكاء الاصطناعي، وبإذن الله القادم سيكون أفضل وأقوى." 🤖💪</p>
+                <div class="video-meta">
+                  <span class="youtube-badge" style="background: var(--facebook);">
+                    <i class="fab fa-facebook"></i> فيسبوك
+                  </span>
+                  <div>
+                    <button class="video-play-btn" style="background: transparent; border: 1px solid var(--facebook); color: var(--facebook); padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+                      <i class="fas fa-play"></i> تشغيل الفيديو
+                    </button>
+                    <a href="https://y-lan-oyunu.vercel.app/" class="video-project-link" target="_blank" style="margin-right: 10px;">
+                      <i class="fas fa-external-link-alt"></i> زيارة المشروع
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           
           <!-- وصف المشروع الرئيسي -->
@@ -2237,10 +2617,10 @@
               <a href="https://smart-accounting-system.vercel.app/" class="video-project-link" target="_blank" style="background: var(--accent); color: white; padding: 12px 25px;">
                 <i class="fas fa-external-link-alt"></i> زيارة مشروع المحاسب الذكي المحسن
               </a>
-              <button onclick="openYouTubePlaylist()" style="background: var(--youtube); color: white; padding: 12px 25px;">
+              <button id="youtubePlaylistBtn" style="background: var(--youtube); color: white; padding: 12px 25px;">
                 <i class="fab fa-youtube"></i> مشاهدة على يوتيوب
               </button>
-              <button onclick="openFacebookPage()" style="background: var(--facebook); color: white; padding: 12px 25px;">
+              <button id="facebookPageBtn" style="background: var(--facebook); color: white; padding: 12px 25px;">
                 <i class="fab fa-facebook"></i> صفحة فيسبوك
               </button>
             </div>
@@ -2363,7 +2743,7 @@
                   <textarea id="idea-description" rows="4" placeholder="صف فكرتك بالتفصيل..."></textarea>
                 </div>
                 
-                <button>إرسال الفكرة</button>
+                <button id="submitIdeaBtn">إرسال الفكرة</button>
               </div>
             </div>
           </div>
@@ -2483,30 +2863,9 @@
         </div>
       </section>
 
-      <!-- الشريط الجانبي -->
+      <!-- الشريط الجانبي الجديد (مبسط) -->
       <aside>
-        <div class="card mini-app">
-          <h3>مفكرة المهام</h3>
-          <div class="todo-input">
-            <input id="taskInput" type="text" placeholder="ماذا تريد أن تفعل اليوم؟" />
-            <button id="addBtn">إضافة</button>
-          </div>
-          
-          <div class="filters">
-            <button id="filterAll" class="success active">الكل</button>
-            <button id="filterActive" class="secondary">النشطة</button>
-            <button id="filterCompleted" class="secondary">المكتملة</button>
-          </div>
-          
-          <ul id="todoList" class="todo"></ul>
-          
-          <div class="stats">
-            <span id="taskStats">المهام: 0</span>
-            <span id="completedStats">مكتملة: 0</span>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:20px">
+        <div class="card">
           <h3>معلومات التواصل</h3>
           <ul style="list-style:none;padding:0;margin:16px 0 0 0">
             <li style="margin-bottom:12px;"><strong>الاسم:</strong> عبد الوهاب عبد الواحد الريمي</li>
@@ -2624,144 +2983,54 @@
     });
 
     // ==============================
-    // وظائف مفكرة المهام
+    // شعار التهاني - يظهر في كل زيارة بدون عداد
     // ==============================
-    const input = document.getElementById('taskInput');
-    const addBtn = document.getElementById('addBtn');
-    const list = document.getElementById('todoList');
-    const filterAll = document.getElementById('filterAll');
-    const filterActive = document.getElementById('filterActive');
-    const filterCompleted = document.getElementById('filterCompleted');
-    const taskStats = document.getElementById('taskStats');
-    const completedStats = document.getElementById('completedStats');
-    
-    let currentFilter = 'all';
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+    const welcomeClose = document.getElementById('welcomeClose');
 
-    function loadTasks(){
-      const raw = localStorage.getItem('my_tasks');
-      try { 
-        return raw ? JSON.parse(raw) : [];
-      }
-      catch(e){ return []; }
-    }
-
-    function saveTasks(tasks){
-      localStorage.setItem('my_tasks', JSON.stringify(tasks));
-    }
-
-    function updateStats() {
-      const tasks = loadTasks();
-      const totalTasks = tasks.length;
-      const completedTasks = tasks.filter(t => t.completed).length;
-      
-      taskStats.textContent = `المهام: ${totalTasks}`;
-      completedStats.textContent = `مكتملة: ${completedTasks}`;
-    }
-
-    function updateFilterButtons() {
-      filterAll.classList.remove('active');
-      filterActive.classList.remove('active');
-      filterCompleted.classList.remove('active');
-      
-      if (currentFilter === 'all') {
-        filterAll.classList.add('active');
-      } else if (currentFilter === 'active') {
-        filterActive.classList.add('active');
-      } else if (currentFilter === 'completed') {
-        filterCompleted.classList.add('active');
-      }
-    }
-
-    function render(){
-      const tasks = loadTasks();
-      list.innerHTML = '';
-      
-      let filteredTasks = tasks;
-      if (currentFilter === 'active') {
-        filteredTasks = tasks.filter(t => !t.completed);
-      } else if (currentFilter === 'completed') {
-        filteredTasks = tasks.filter(t => t.completed);
-      }
-      
-      if(filteredTasks.length === 0){
-        const emptyMessage = currentFilter === 'all' ? 'لا توجد مهام حالياً' :
-                            currentFilter === 'active' ? 'لا توجد مهام نشطة' :
-                            'لا توجد مهام مكتملة';
-        list.innerHTML = `<li class="muted" style="justify-content:center;text-align:center">${emptyMessage}</li>`;
-        updateStats();
-        updateFilterButtons();
-        return;
-      }
-      
-      filteredTasks.forEach((task)=>{
-        const li = document.createElement('li');
-        if (task.completed) {
-          li.classList.add('completed');
-        }
+    // دالة لعرض شعار الترحيب
+    function showWelcomePopup() {
+      // تأخير بسيط لظهور الترحيب
+      setTimeout(() => {
+        welcomeOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
         
-        li.innerHTML = `
-          <span>${task.text}</span>
-          <div class="task-actions">
-            <button data-id="${task.id}" class="toggle ${task.completed ? 'secondary' : 'success'}">
-              ${task.completed ? 'إلغاء' : 'إكمال'}
-            </button>
-            <button data-id="${task.id}" class="del danger">حذف</button>
-          </div>
-        `;
-        list.appendChild(li);
-      });
-      
-      list.querySelectorAll('.del').forEach(btn => {
-        btn.addEventListener('click', e => {
-          const id = Number(e.currentTarget.dataset.id);
-          const tasks = loadTasks();
-          const updatedTasks = tasks.filter(t => t.id !== id);
-          saveTasks(updatedTasks);
-          render();
-        });
-      });
-      
-      list.querySelectorAll('.toggle').forEach(btn => {
-        btn.addEventListener('click', e => {
-          const id = Number(e.currentTarget.dataset.id);
-          const tasks = loadTasks();
-          const task = tasks.find(t => t.id === id);
-          if (task) {
-            task.completed = !task.completed;
-            saveTasks(tasks);
-            render();
-          }
-        });
-      });
-      
-      updateStats();
-      updateFilterButtons();
+        // تسجيل في الكونسول
+        console.log('%c👋 مرحباً بك في موقع عبد الوهاب الريمي!', 
+          'color: #00D4AA; font-weight: bold; font-size: 14px; background: #0A0F1C; padding: 8px; border-radius: 5px;');
+      }, 1000);
     }
 
-    function addTask() {
-      const taskText = input.value.trim();
-      if(!taskText) return;
-      
-      const tasks = loadTasks();
-      tasks.unshift({
-        id: Date.now(),
-        text: taskText,
-        completed: false
-      });
-      
-      saveTasks(tasks);
-      input.value = '';
-      render();
+    // دالة لإغلاق شعار الترحيب
+    function closeWelcomePopup() {
+      welcomeOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
     }
 
-    addBtn.addEventListener('click', addTask);
-    input.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') addTask(); });
+    // استدعاء عرض الترحيب عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      // عرض الترحيب دائماً
+      showWelcomePopup();
+    });
 
-    filterAll.addEventListener('click', () => { currentFilter = 'all'; render(); });
-    filterActive.addEventListener('click', () => { currentFilter = 'active'; render(); });
-    filterCompleted.addEventListener('click', () => { currentFilter = 'completed'; render(); });
+    // إغلاق شعار الترحيب عند النقر على الزر
+    welcomeClose.addEventListener('click', () => {
+      closeWelcomePopup();
+    });
 
-    render();
+    // إغلاق الترحيب عند النقر خارج النافذة
+    welcomeOverlay.addEventListener('click', (e) => {
+      if (e.target === welcomeOverlay) {
+        closeWelcomePopup();
+      }
+    });
+
+    // إغلاق الترحيب عند الضغط على زر Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && welcomeOverlay.classList.contains('active')) {
+        closeWelcomePopup();
+      }
+    });
 
     // ==============================
     // وظائف التواصل عبر الرسائل
@@ -2776,6 +3045,8 @@
     const footerYouTube = document.getElementById('footerYouTube');
     const sidebarFacebook = document.getElementById('sidebarFacebook');
     const footerFacebook = document.getElementById('footerFacebook');
+    const youtubePlaylistBtn = document.getElementById('youtubePlaylistBtn');
+    const facebookPageBtn = document.getElementById('facebookPageBtn');
     
     const phoneNumber = '967775247172';
     const defaultMessage = 'مرحباً عبد الوهاب، أود التواصل معك بخصوص خدماتك البرمجية';
@@ -2825,6 +3096,16 @@
     
     footerFacebook.addEventListener('click', (e) => {
       e.preventDefault();
+      window.open(facebookUrl, '_blank');
+    });
+
+    // زر قائمة تشغيل يوتيوب
+    youtubePlaylistBtn.addEventListener('click', () => {
+      window.open(youtubeUrl, '_blank');
+    });
+
+    // زر صفحة فيسبوك
+    facebookPageBtn.addEventListener('click', () => {
       window.open(facebookUrl, '_blank');
     });
 
@@ -2914,130 +3195,130 @@
     const videoPlayerProjectLink = document.getElementById('videoPlayerProjectLink');
     const videoPlayerFacebookLink = document.getElementById('videoPlayerFacebookLink');
     
-    // بيانات الفيديوهات (تم تحديثها بالفيديوهات الجديدة)
+    // بيانات الفيديوهات
     const videosData = {
       'ZG5J92locoI': {
         title: 'نظام المحاسب الذكي',
-        description: 'نظام المحاسب الذكي هو تطبيق محاسبي متكامل يساعد الأفراد والشركات على إدارة مواردهم المالية بسهولة ودقة. يتيح تتبع الإيرادات والمصروفات، وإنشاء تقارير مالية فورية، وحساب الأرباح والخسائر تلقائيًا، مع واجهة ذكية وسهلة الاستخدام.',
+        description: 'نظام المحاسب الذكي هو تطبيق محاسبي متكامل يساعد الأفراد والشركات على إدارة مواردهم المالية بسهولة ودقة.',
         youtubeUrl: 'https://youtube.com/shorts/ZG5J92locoI?si=o814vWpV_k0PV84Z',
         projectLink: 'https://smart-accounting-system.vercel.app/',
         facebookLink: null
       },
       'zrO1pDHxvuw': {
         title: 'انشاء صفحه شبكات',
-        description: 'أقدّم لك خدمة تصميم وإنشاء مواقع شبكات احترافية سلكية 💻 ولاسلكية 📡 بأحدث التقنيات لضمان سرعة وأمان واتصال مستقر 🔒',
+        description: 'أقدّم لك خدمة تصميم وإنشاء مواقع شبكات احترافية سلكية 💻 ولاسلكية 📡 بأحدث التقنيات.',
         youtubeUrl: 'https://youtube.com/shorts/zrO1pDHxvuw?si=3y4ufxg2o3GzZAnA',
         projectLink: 'https://resonant-kheer-da1fbf.netlify.app/',
         facebookLink: null
       },
       'NQy7aKqL81s': {
         title: 'انشاء صفحه ويب تعريفه',
-        description: '💼 أقدّم لكم خدمات تصميم وإنشاء صفحات ويب احترافية لمختلف المشاريع، مثل مواقع المستشفيات والوحدات الصحية وغيرها، بتصاميم حديثة ومتجاوبة توفر تجربة استخدام سهلة وجذابة.',
+        description: '💼 أقدّم لكم خدمات تصميم وإنشاء صفحات ويب احترافية لمختلف المشاريع.',
         youtubeUrl: 'https://youtube.com/shorts/NQy7aKqL81s?si=bPEqGwizCWXjFePM',
         projectLink: 'https://health-unit.vercel.app/',
         facebookLink: null
       },
       'Cnp1WXBlcJc': {
         title: 'متجرك الاكتروني',
-        description: '🔥 ابدأ مشروعك الرقمي بخطوة ذكية! نصمم لك متجرك الإلكتروني أو موقعك بأسلوب عصري يلفت الأنظار ويزيد مبيعاتك. ✨ واجهات أنيقة، أداء سريع، وتجربة استخدام تفتح لك أبواب النجاح! 💡 معانا، فكرتك تتحول إلى موقع يبهر عملاءك ويكبر مع طموحك. 🚀 ابدأ الآن وكن جزءًا من المستقبل الرقمي!',
+        description: '🔥 ابدأ مشروعك الرقمي بخطوة ذكية! نصمم لك متجرك الإلكتروني أو موقعك بأسلوب عصري.',
         youtubeUrl: 'https://youtube.com/shorts/Cnp1WXBlcJc?si=RrcaQX9SRD8MWdHd',
         projectLink: 'https://your-online-store.vercel.app/',
         facebookLink: null
       },
       'DLOKHl_gOWA': {
         title: 'العرض البصري المذهل',
-        description: 'هذا المشروع يمثل عرضًا بصريًا مذهلاً للدوائر المتحركة في فضاء ثلاثي الأبعاد، حيث يتم دمج تقنيات CSS3 المتقدمة مع JavaScript لخلق تجربة بصرية تفاعلية فريدة.',
+        description: 'هذا المشروع يمثل عرضًا بصريًا مذهلاً للدوائر المتحركة في فضاء ثلاثي الأبعاد.',
         youtubeUrl: 'https://youtube.com/shorts/DLOKHl_gOWA?si=JsKxjiheVMJ936xg',
         projectLink: null,
         facebookLink: null
       },
       'j5zVUv8zTTQ': {
         title: 'نظام المجرة ثلاثي الأبعاد المحسن',
-        description: 'هذا المشروع هو محاكاة تفاعلية ثلاثية الأبعاد لنظام شمسي مع تأثيرات بصرية متقدمة. تم تطويره باستخدام مكتبة Three.js لتقديم تجربة غامرة في استكشاف الفضاء.',
+        description: 'هذا المشروع هو محاكاة تفاعلية ثلاثية الأبعاد لنظام شمسي مع تأثيرات بصرية متقدمة.',
         youtubeUrl: 'https://youtube.com/shorts/j5zVUv8zTTQ?si=8gBzjx7Lz1DPQsTJ',
         projectLink: null,
         facebookLink: null
       },
       'facebook-6': {
-        title: 'كروت اتصال الواي فاي الذكية - أحدث حلول الضيافة الرقمية',
-        description: 'مميزات الخدمة:\n• إنشاء رمز QR مخصص: لشبكة الواي فاي الخاصة بمؤسستك.\n• اتصال آمن وسريع: يسمح للضيوف بالاتصال تلقائياً بمجرد مسح الرمز.\n• توفير الوقت والجهد: لا حاجة لتذكير الضيوف بكلمة المرور.\n• تصاميم مبتكرة: ننفذ لك أفضل التصاميم الاحترافية للكروت.\n\nنحن نضمن لكم:\n✔ الاستجابة الأسرع لطلباتكم.\n✔ جودة عالية في التصميم والطباعة.\n✔ حلولاً عملية تعزز تجربة ضيوفكم.\n\nللاستفسار وطلب الخدمة:\nاتصل بنا على الرقم: 775247172',
+        title: 'كروت اتصال الواي فاي الذكية',
+        description: 'أحدث حلول الضيافة الرقمية! أنشئ رمز QR مخصص لشبكة الواي فاي الخاصة بمؤسستك.',
         youtubeUrl: null,
         projectLink: 'https://qr-code-generator-sand.vercel.app/',
         facebookLink: 'https://www.facebook.com/share/r/17mQqx9WSZ/'
       },
       'j5zVUv8zTTQ-cosmic': {
         title: 'مرئية الجسيمات الكونية',
-        description: 'مشروع مرئية الجسيمات الكونية هو تطبيق ويب تفاعلي ثلاثي الأبعاد يعرض عروضاً بصرية مذهلة للجسيمات باستخدام تقنية WebGL ومكتبة Three.js. يمثل المشروع محاكاة فنية للأنظمة النجمية والكونية بتأثيرات بصرية مبهرة.',
+        description: 'مشروع مرئية الجسيمات الكونية هو تطبيق ويب تفاعلي ثلاثي الأبعاد يعرض عروضاً بصرية مذهلة للجسيمات.',
         youtubeUrl: 'https://youtube.com/shorts/j5zVUv8zTTQ?si=8gBzjx7Lz1DPQsTJ',
         projectLink: 'https://cosmic-particles-visualization.vercel.app/',
         facebookLink: 'https://www.facebook.com/share/r/1DCE3UN5RL/'
       },
       'YpiI3ZI5AUY': {
         title: 'تعلم كيف تنشئ حساب بريد إلكتروني إبداعي عبر Visme',
-        description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة. فقط املأ بياناتك في النموذج أدناه، واختر كلمة مرور قوية، لتبدأ رحلتك معنا بكل أمان ومتعة.',
+        description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة.',
         youtubeUrl: 'https://youtu.be/YpiI3ZI5AUY?si=gM0Vi7GRRTATswDc',
         projectLink: null,
         facebookLink: null
       },
       'WrT3YQJ4X9o': {
         title: 'التسجيل في الحساب الإبداعي',
-        description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.',
+        description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة.',
         youtubeUrl: 'https://youtube.com/shorts/WrT3YQJ4X9o?si=SoqTFgPtoYO9Cupg',
         projectLink: null,
         facebookLink: null
       },
       'qap0l8YCNV4': {
         title: 'تثبيت تطبيق نظام المحاسب الذكي - النسخة التجريبية',
-        description: '💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري، يهدف إلى تقديم تجربة محاسبية ذكية وسهلة الاستخدام. بإذن الله سيكون الإصدار القادم تطبيقًا حقيقيًا وكامل المميزات قريبًا. يمكن تثبيت وتجربة التطبيق الآن.',
+        description: '💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري.',
         youtubeUrl: 'https://youtube.com/shorts/qap0l8YCNV4?si=8tXUKNnoZkGWRAdo',
         projectLink: 'https://smart-accounting-system.vercel.app/',
         facebookLink: null
       },
       'A00AI3WFbYA': {
         title: 'إنشاء فاتورة في نظام المحاسب الذكي',
-        description: '💼 نظام المحاسب الذكي المتكامل - تطبيق تجريبي ذكي لإدارة الحسابات. 🧾 أنشئ الفواتير واطبعها، احفظها في جهازك، وشاركها عبر واتساب بسهولة. 🚀 قريبًا الإصدار الكامل بمزايا متقدمة.',
+        description: '💼 نظام المحاسب الذكي المتكامل - تطبيق تجريبي ذكي لإدارة الحسابات.',
         youtubeUrl: 'https://youtube.com/shorts/A00AI3WFbYA?si=d4zEz69y0iwKkkTA',
         projectLink: 'https://studio-vert-xi.vercel.app/',
         facebookLink: null
       },
       'V5Umbzrt6Gk': {
         title: 'نظام المحاسب الذكي المتكامل - النسخة التجريبية',
-        description: '💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري، يهدف إلى تقديم تجربة محاسبية ذكية وسهلة الاستخدام. 📱 يمكنك الآن تثبيته وتجربته للتعرف على فكرته وأدواته الأساسية. بإذن الله سيكون الإصدار القادم تطبيقًا حقيقيًا وكامل المميزات قريبًا.',
+        description: '💼 نظام المحاسب الذكي المتكامل هو أول تطبيق تجريبي من تطويري.',
         youtubeUrl: 'https://youtube.com/shorts/V5Umbzrt6Gk?si=ILkKFbBdGXFmJnRw',
         projectLink: 'https://smart-accounting-system.vercel.app/',
         facebookLink: null
       },
       'facebook-1': {
         title: 'تأجير السيارات',
-        description: 'إذا كنت تبحث عن متجر إلكتروني حديث، متطور، وسريع يعمل على جميع الأجهزة ويعطي تجربة مستخدم راقية — فأنت في المكان الصحيح!',
+        description: 'إذا كنت تبحث عن متجر إلكتروني حديث، متطور، وسريع.',
         youtubeUrl: null,
         projectLink: null,
         facebookLink: 'https://www.facebook.com/share/r/1Bd4G6d6kG/'
       },
       'facebook-2': {
         title: 'انشاء صفحه ويب الأعمال',
-        description: 'شركة الريمي للمقاولات العامة تقدم خدمات متكاملة في مجال البناء والتشطيب تحت إشراف جمال الريمي.',
+        description: 'شركة الريمي للمقاولات العامة تقدم خدمات متكاملة في مجال البناء والتشطيب.',
         youtubeUrl: null,
         projectLink: 'https://general-contracting-nine.vercel.app/',
         facebookLink: 'https://www.facebook.com/share/r/1PHa76BhCQ/'
       },
       'facebook-3': {
         title: 'انشاء حساب إبداعي',
-        description: 'أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة.',
+        description: 'أنشئ حسابك بخطوات سهلة وسريعة.',
         youtubeUrl: null,
         projectLink: null,
         facebookLink: 'https://www.facebook.com/share/r/1KPmA5eaKa/'
       },
       'facebook-4': {
         title: 'انشاء حساب إبداعي',
-        description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة، وادخل عالمًا مليئًا بالفرص والتجارب المميزة. فقط املأ بياناتك في النموذج أدناه، واختر كلمة مرور قوية، لتبدأ رحلتك معنا بكل أمان ومتعة.',
+        description: 'مرحبًا بك في عالم الإبداع! أنشئ حسابك بخطوات سهلة وسريعة.',
         youtubeUrl: null,
         projectLink: null,
         facebookLink: 'https://www.facebook.com/share/r/1GF5V8EHyQ/'
       },
       'facebook-5': {
         title: 'لعبه الثعبان بالذكاء الاصطناعي',
-        description: 'لعبة الثعبان بالذكاء الاصطناعي ليست أول مشروع لي في هذا المجال، لكنها البداية في رحلتي مع الذكاء الاصطناعي، وبإذن الله القادم سيكون أفضل وأقوى." 🤖💪',
+        description: 'لعبة الثعبان بالذكاء الاصطناعي ليست أول مشروع لي في هذا المجال.',
         youtubeUrl: null,
         projectLink: 'https://y-lan-oyunu.vercel.app/',
         facebookLink: 'https://www.facebook.com/share/r/17QZsvDFp1/'
@@ -3188,16 +3469,37 @@
       });
     });
     
-    // فتح قائمة تشغيل يوتيوب
-    function openYouTubePlaylist() {
-      window.open('https://youtube.com/@nocheluz-l8p', '_blank');
-    }
+    // ==============================
+    // وظيفة إرسال الفكرة
+    // ==============================
+    const submitIdeaBtn = document.getElementById('submitIdeaBtn');
+    const ideaNameInput = document.getElementById('idea-name');
+    const ideaCategorySelect = document.getElementById('idea-category');
+    const ideaDescriptionTextarea = document.getElementById('idea-description');
     
-    // فتح صفحة فيسبوك
-    function openFacebookPage() {
-      window.open('https://www.facebook.com/share/1C3q5F9tDD/', '_blank');
-    }
-
+    submitIdeaBtn.addEventListener('click', () => {
+      const ideaName = ideaNameInput.value.trim();
+      const ideaCategory = ideaCategorySelect.value;
+      const ideaDescription = ideaDescriptionTextarea.value.trim();
+      
+      if (!ideaName || !ideaDescription) {
+        alert('الرجاء إدخال اسم الفكرة ووصفها');
+        return;
+      }
+      
+      if (!ideaCategory) {
+        alert('الرجاء اختيار تصنيف للفكرة');
+        return;
+      }
+      
+      alert(`شكراً لمشاركة فكرتك!\n\nاسم الفكرة: ${ideaName}\nالتصنيف: ${ideaCategory}\n\nسنعمل على دراستها وتطويرها بإذن الله.`);
+      
+      // إعادة تعيين النموذج
+      ideaNameInput.value = '';
+      ideaCategorySelect.value = '';
+      ideaDescriptionTextarea.value = '';
+    });
+    
     // ==============================
     // تهيئة الصور عند تحميل الصفحة
     // ==============================
