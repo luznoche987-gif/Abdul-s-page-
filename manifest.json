@@ -1,0 +1,23 @@
+{
+  "name": "أفكار برمجية",
+  "short_name": "أفكار برمجية",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#4DA8FF",
+  "description": "منصة لعرض المشاريع والأفكار البرمجية تحت إشراف المبرمج عبد الوهاب عبد الواحد الريمي",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "file.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "file.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
